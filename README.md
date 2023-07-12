@@ -1,1 +1,1 @@
-W bot by the one and only DolphinNotFound!
+Cool economy bot by the one and only DolphinNotFound!
