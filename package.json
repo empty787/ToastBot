@@ -1,0 +1,29 @@
+{
+  "name": "dolphinnotbot-v14-main-file",
+  "version": "1.0.0",
+  "description": "discord bot",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [],
+  "author": "Dolphinnotfound",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.7.1",
+    "@napi-rs/canvas": "^0.1.41",
+    "canvacord": "^5.4.10",
+    "canvas": "^2.11.2",
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security",
+    "google-it": "^1.6.4",
+    "jsoning": "^0.13.23",
+    "mathjs": "^11.8.2",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.3.2",
+    "nodemon": "^3.0.1",
+    "omega_num.js": "^0.6.0",
+    "openai": "^3.3.0"
+  }
+}
