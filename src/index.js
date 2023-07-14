@@ -19,6 +19,11 @@ let status = [
     url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=DolphinNotFound',
   },
   {
+    name: 'Sub to DolphinNotFound for 10000000 DolphinBucks and 40000000 DolphCoins!!!',
+    type: ActivityType.Streaming,
+    url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=DolphinNotFound',
+  },
+  {
     name: 'DolphWorld Economy',
     type: ActivityType.Competing,
   },
@@ -27,7 +32,7 @@ let status = [
     type: ActivityType.Watching,
   },
   {
-    name: '/ping | /level | /work',
+    name: '/ping | /level | /work | /spinwheel',
     type: ActivityType.Playing,
   },
   {
