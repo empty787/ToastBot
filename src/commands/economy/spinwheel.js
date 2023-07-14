@@ -22,8 +22,8 @@ module.exports = {
       let index = 0;
 
       const updateLoader = (progress) => {
-        const progressBar = '■'.repeat(Math.floor(progress / 10)) + '□'.repeat(10 - Math.floor(progress / 10));
-        const updatedMessage = `Loading... ${progress}% ${progressBar} ${spinner[index]}`;
+        const progressBar = `\`${'■'.repeat(Math.floor(progress / 10))} ${' '.repeat(10 - Math.floor(progress / 10))}\``;
+        const updatedMessage = `Loading... Generation in progress! ${progress}% ${progressBar} ${spinner[index]}`;
         loadingMessage.edit(updatedMessage);
         index = (index + 1) % spinner.length;
       };
@@ -46,7 +46,7 @@ module.exports = {
           Level.findOneAndUpdate({ userId }, { $inc: { xp: xpEarned } }, { upsert: true })
             .then(() => {
               const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
-              const resultMessage = `EEEEE \nYou earned ||${xpEarned} XP!|| \n\n${randomPrompt}`;
+              const resultMessage = `EEEEE\nYou earned ||${xpEarned} XP!||\n\n${randomPrompt}`;
               interaction.editReply(resultMessage);
             })
             .catch((error) => {
