@@ -55,7 +55,7 @@ module.exports = {
       const topic = interaction.options.getString('topic') || 'General';
 
       const embed = {
-        title: `Said by ${interaction.user.username} <@${targetUserId}>`,
+        title: `Said by ${interaction.user.username}`,
         description: `**Topic:** ${topic}\n\n${message}`,
         color: 0x964B00,
         thumbnail: {
