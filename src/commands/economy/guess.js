@@ -1,60 +1,66 @@
-const { CommandInteraction, MessageEmbed } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
 const Level = require('../../models/Level');
 
 module.exports = {
-  name: 'guess',
-  description: 'Guess the correct number to earn Dolphinbucks and Dolphcoins! or else...',
-
   /**
-   * Execute the number guessing game command.
-   * @param {CommandInteraction} interaction - The interaction object.
+   * @param {Client} client
+   * @param {Interaction} interaction
    */
-  async execute(interaction) {
-    const numberToGuess = Math.floor(Math.random() * 100) + 1; // Generate a random number between 1 and 100
-
-    const filter = (message) => {
-      // Only consider messages sent by the command invoker
-      return message.author.id === interaction.user.id;
-    };
-
-    await interaction.reply('I have chosen a number between 1 and 100. Take a guess!');
+  callback: async (client, interaction) => {
+    await interaction.deferReply();
 
     try {
-      const collected = await interaction.channel.awaitMessages({
-        filter,
-        max: 1,
-        time: 10000, // Set a time limit of 10 seconds for guessing
-        errors: ['time'],
-      });
+      const amount = interaction.options.get('amount').value;
+      const randomNumber = Math.floor(Math.random() * 100) + 1; // Generate a random number between 1 and 100
+      let attempts = 5;
+      let earnings = 0;
 
-      const guess = parseInt(collected.first().content);
+      while (attempts > 0) {
+        const guess = Math.floor(Math.random() * 100) + 1; // Generate a random guess
 
-      if (guess === numberToGuess) {
-        // Guess is correct
-        await interaction.reply('Congratulations! You guessed the correct number and earned XP!');
+        if (guess === randomNumber) {
+          earnings = amount * (11 - attempts); // Calculate earnings based on attempts
 
-        // Increase the user's XP by a certain amount
-        const userId = interaction.user.id;
-        const xpToEarn = 100; // The amount of XP to earn for a correct guess
+          const userId = interaction.user.id;
+          const guildId = interaction.guild.id;
 
-        const fetchedLevel = await Level.findOne({
-          userId,
-          guildId: interaction.guild.id,
-        });
+          // Check if the user already has a level entry in the database
+          let userLevel = await Level.findOne({ userId, guildId });
 
-        if (fetchedLevel) {
-          fetchedLevel.xp += xpToEarn;
-          await fetchedLevel.save();
+          // If user level entry doesn't exist, create a new one
+          if (!userLevel) {
+            userLevel = new Level({ userId, guildId });
+          }
+
+          userLevel.xp += earnings;
+
+          await userLevel.save();
+
+          break;
         }
 
-        // You can customize the reward or XP system based on your requirements
+        attempts--;
+      }
+
+      if (earnings > 0) {
+        interaction.editReply(`Congratulations! You guessed the number and won ${earnings} credits. You gained ${earnings} XP.`);
       } else {
-        // Guess is incorrect
-        await interaction.reply(`Sorry, that's not the correct number. The number I chose was ${numberToGuess}.`);
+        interaction.editReply(`Sorry, you couldn't guess the number. Better luck next time! OOPS NO XP :(`);
       }
     } catch (error) {
-      console.error(`Error in the number guessing game: ${error}`);
-      await interaction.reply('It seems like there was an error while playing the game. Please try again later.');
+      console.error('Error running guess command:', error);
+      interaction.editReply('An error occurred while running the command.');
     }
   },
+
+  name: 'guess',
+  description: 'Guess the random number and win credits.',
+  options: [
+    {
+      name: 'amount',
+      description: 'The bet amount.',
+      type: ApplicationCommandOptionType.Integer,
+      required: true,
+    },
+  ],
 };
