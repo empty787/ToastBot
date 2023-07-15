@@ -1,4 +1,4 @@
-const { Client, Interaction } = require('discord.js');
+const { Client, Interaction, DiscordAPIError } = require('discord.js');
 
 module.exports = {
   name: 'button',
@@ -54,21 +54,31 @@ module.exports = {
       collector.on('collect', async (buttonInteraction) => {
         const customId = buttonInteraction.customId;
 
-        switch (customId) {
-          case 'Primary':
-            await buttonInteraction.update({ content: 'You clicked the Primary button!' });
-            break;
-          case 'Secondary':
-            await buttonInteraction.update({ content: 'You clicked the Secondary button!' });
-            break;
-          case 'Success':
-            await buttonInteraction.update({ content: 'You clicked the Success button!' });
-            break;
-          case 'Danger':
-            await buttonInteraction.update({ content: 'You clicked the Danger button!' });
-            break;
-          default:
-            await buttonInteraction.update({ content: 'Unknown button.' });
+        try {
+          switch (customId) {
+            case 'Primary':
+              await buttonInteraction.update({ content: 'You clicked the Primary button!' });
+              break;
+            case 'Secondary':
+              await buttonInteraction.update({ content: 'You clicked the Secondary button!' });
+              break;
+            case 'Success':
+              await buttonInteraction.update({ content: 'You clicked the Success button!' });
+              break;
+            case 'Danger':
+              await buttonInteraction.update({ content: 'You clicked the Danger button!' });
+              break;
+            default:
+              await buttonInteraction.update({ content: 'Unknown button.' });
+          }
+        } catch (error) {
+          if (error instanceof DiscordAPIError && error.code === 10062) {
+            // Ignore the "Unknown interaction" error
+            return;
+          } else {
+            console.error('Error running button command:', error);
+            await interaction.editReply('An error occurred while running the command.');
+          }
         }
       });
     } catch (error) {
