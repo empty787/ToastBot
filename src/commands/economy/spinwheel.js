@@ -23,7 +23,7 @@ module.exports = {
 
       const updateLoader = (progress) => {
         const progressBar = `\`${'■'.repeat(Math.floor(progress / 10))} ${' '.repeat(10 - Math.floor(progress / 10))}\``;
-        const updatedMessage = `Loading... Generation in progress! ${progress}% ${progressBar} ${spinner[index]}`;
+        const updatedMessage = `Loading... -_- ${progress}% ${progressBar} ${spinner[index]}`;
         loadingMessage.edit(updatedMessage);
         index = (index + 1) % spinner.length;
       };

@@ -14,7 +14,7 @@ module.exports = {
       const message = interaction.options.getString('message');
   
       const embed = {
-        title: 'Said by DolphinNotBot',
+        title: `Said by ${interaction.user.username}`,
         description: message,
         color: 0x964B00,
         thumbnail: {
