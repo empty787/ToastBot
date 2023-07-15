@@ -3,7 +3,7 @@ const Level = require('../../models/Level');
 
 module.exports = {
   name: 'xp-button',
-  description: 'e',
+  description: 'Guess the correct button to win some xp points!',
   callback: async (client, interaction) => {
     await interaction.deferReply();
 
