@@ -41,7 +41,7 @@ module.exports = {
 
       await userLevel.save();
 
-      interaction.editReply(`Added ${xpToAdd} XP to the user's level.`);
+      interaction.editReply(`Added ${xpToAdd} XP to <@${targetUserId}> level.`);
     } catch (error) {
       console.error('Error running add command:', error);
       interaction.editReply('An error occurred while running the command.');
