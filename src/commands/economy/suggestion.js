@@ -77,7 +77,7 @@ module.exports = {
       const channel = guild.channels.cache.get(channelId);
       if (!channel) return console.log('Invalid channel ID');
 
-      await interaction.reply('YAYAYAYAYAYAY! EEEEE Your suggestion has been sent!');
+      await interaction.reply('YAYAYAYAYAYAY! EEEEE Your suggestion has been sent to DolphWorld!');
       await channel.send({ embeds: [embed] });
 
       cooldowns.set(userId, Date.now());
