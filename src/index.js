@@ -54,14 +54,59 @@ client.on('ready', (c) => {
   }, 10000);
 });
 
-client.on('guildMemberAdd', (member) => {
-  const welcomeChannel = member.guild.channels.cache.find((channel) => channel.name === 'welcome');
+// the start of the Dolphin welcome thing
+
+const { createCanvas, loadImage } = require('canvas');
+
+client.on('guildMemberAdd', async (member) => {
+  const welcomeChannel = member.guild.channels.cache.find((channel) => channel.name.toLowerCase().includes('welcome'));
 
   if (welcomeChannel) {
-    welcomeChannel.send(`Welcome ${member} to the server! Enjoy your stay.`);
+    const canvas = createCanvas(800, 200);
+    const ctx = canvas.getContext('2d');
+
+    // Load the background image
+    const backgroundImage = await loadImage('https://i.imgur.com/FMXo96r_d.jpg?maxwidth=520&shape=thumb&fidelity=high');
+
+    // Draw the background image
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+    // Set the text properties
+    ctx.font = '33px Arial';
+    ctx.fillStyle = '#964B00';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Draw the welcome message
+    ctx.fillText(`Welcome ${member.displayName} to ${member.guild.name}!`, canvas.width / 2, canvas.height / 2);
+
+    // Add some decorations
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 5;
+    ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+
+    // Convert the canvas to a buffer
+    const buffer = canvas.toBuffer('image/png');
+
+    // Send the welcome message with the canvas as an attachment
+    welcomeChannel.send({
+      content: `Welcome ${member} to the server! Enjoy your stay.`,
+      files: [{
+        attachment: buffer,
+        name: 'welcome.png',
+      }],
+    });
+  } else {
+    const serverOwner = member.guild.owner;
+    if (serverOwner) {
+      const randomChatChannel = member.guild.channels.cache.random();
+      randomChatChannel.send(`Hey ${serverOwner}, please create a welcome channel in your server (${member.guild.name}) to enable the welcome message.`);
+    }
   }
 });
 
+
+// the end
 
 client.on('messageCreate', (message) => {
   if (message.author.bot) {
