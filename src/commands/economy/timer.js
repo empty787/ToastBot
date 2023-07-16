@@ -1,7 +1,6 @@
 module.exports = {
     name: 'timer',
     description: 'Start a timer',
-    testOnly: true,
     options: [
       {
         name: 'duration',
