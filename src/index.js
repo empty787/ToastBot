@@ -54,6 +54,15 @@ client.on('ready', (c) => {
   }, 10000);
 });
 
+client.on('guildMemberAdd', (member) => {
+  const welcomeChannel = member.guild.channels.cache.find((channel) => channel.name === 'welcome');
+
+  if (welcomeChannel) {
+    welcomeChannel.send(`Welcome ${member} to the server! Enjoy your stay.`);
+  }
+});
+
+
 client.on('messageCreate', (message) => {
   if (message.author.bot) {
     return;
