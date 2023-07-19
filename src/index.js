@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Client, IntentsBitField, ActivityType } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
 const mongoose = require('mongoose');
 const eventHandler = require('./handlers/eventHandler');
 
@@ -54,9 +55,7 @@ client.on('ready', (c) => {
   }, 10000);
 });
 
-// the start of the Dolphin welcome thing
-
-const { createCanvas, loadImage } = require('canvas');
+// dolphworld welcome canvas
 
 client.on('guildMemberAdd', async (member) => {
   const welcomeChannel = member.guild.channels.cache.find((channel) => channel.name.toLowerCase().includes('welcome'));
@@ -90,7 +89,7 @@ client.on('guildMemberAdd', async (member) => {
 
     // Send the welcome message with the canvas as an attachment
     welcomeChannel.send({
-      content: `Welcome ${member} to the server! Enjoy your stay.`,
+      content: `Welcome ${member} to ${member.guild.name}! Enjoy your stay.`,
       files: [{
         attachment: buffer,
         name: 'welcome.png',
@@ -106,7 +105,7 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 
-// the end
+// code ending
 
 client.on('messageCreate', (message) => {
   if (message.author.bot) {
