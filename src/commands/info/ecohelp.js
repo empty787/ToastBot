@@ -63,6 +63,26 @@ module.exports = {
             name: '/work',
             value: 'Use this slash command for more DolphinBucks!',
           },
+          {
+            name: '/buy',
+            value: 'Want to spend your DolphinBucks on something cool? Do /buy to get something!',
+          },
+          {
+            name: '/shop',
+            value: 'Shows all availible products in stock at DolphinShop!',
+          },
+          {
+            name: '/inventory',
+            value: 'Shows every thing you brought/own from the shop!',
+          },
+          {
+            name: '/restaurant',
+            value: 'Shows all availible products in stock at `Dolphins Goofy Ahh Restarant!`',
+          },
+          {
+            name: '/order',
+            value: 'Are you starving rn? well, use this command to get food at `Dolphins Goofy Ahh Restarant!`',
+          },
         ],
         color: 0x964B00, // You can customize the color as desired
         image: {

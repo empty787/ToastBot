@@ -1,56 +1,119 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
-const Level = require('../../models/Level');
+const { Client, Interaction } = require('discord.js');
+const User = require('../../models/User');
+const Item = require('../../models/Item');
 
 module.exports = {
+  name: 'trade',
+  description: 'Trade coins and items with another user.',
+  options: [
+    {
+      name: 'target-user',
+      description: 'The user to trade with.',
+      type: 6, // User type
+      required: true,
+    },
+    {
+      name: 'sender-coins',
+      description: 'The amount of coins to trade from your side.',
+      type: 4, // Integer type
+      required: true,
+    },
+    {
+      name: 'target-coins',
+      description: 'The amount of coins to trade from the target user.',
+      type: 4, // Integer type
+      required: true,
+    },
+    {
+      name: 'sender-items',
+      description: 'The items to trade from your side (separate multiple items with commas).',
+      type: 3, // String type
+    },
+    {
+      name: 'target-items',
+      description: 'The items to trade from the target user (separate multiple items with commas).',
+      type: 3, // String type
+    },
+  ],
+
   /**
-   *
    * @param {Client} client
    * @param {Interaction} interaction
    */
   callback: async (client, interaction) => {
-    if (!interaction.inGuild()) {
-      interaction.reply('You can only run this command inside a server.');
-      return;
-    }
-
-    await interaction.deferReply();
-
     try {
-      const userId = interaction.member.id;
+      await interaction.deferReply();
+
+      const userId = interaction.user.id;
       const guildId = interaction.guild.id;
 
-      const userLevel = await Level.findOne({ userId, guildId });
+      // Fetch the sender's user data from the database or create a new user if it doesn't exist
+      let senderUser = await User.findOne({ userId, guildId });
 
-      const mentionedUserId = interaction.options.get('target-user')?.value;
-      const targetUserId = mentionedUserId || interaction.member.id;
+      if (!senderUser) {
+        senderUser = await User.create({ userId, guildId });
+      }
 
-      const targetLevel = await Level.findOne({ userId: targetUserId, guildId });
+      const targetUserId = interaction.options.get('target-user').value;
 
-      if (!targetLevel) {
-        interaction.editReply("The target user doesn't have a level entry.");
+      // Fetch the target user's data from the database or create a new user if it doesn't exist
+      let targetUser = await User.findOne({ userId: targetUserId, guildId });
+
+      if (!targetUser) {
+        targetUser = await User.create({ userId: targetUserId, guildId });
+      }
+
+      const senderCoins = interaction.options.getInteger('sender-coins');
+      const targetCoins = interaction.options.getInteger('target-coins');
+      const senderItems = interaction.options.getString('sender-items')?.split(',').map(item => item.trim());
+      const targetItems = interaction.options.getString('target-items')?.split(',').map(item => item.trim());
+
+      if (senderCoins <= 0 || targetCoins <= 0) {
+        interaction.editReply('Please provide a valid number of coins to trade.');
         return;
       }
 
-      const senderCoins = interaction.options.get('sender-coins')?.value || 0;
-      const targetCoins = interaction.options.get('target-coins')?.value || 0;
-
-      if (userLevel.xp < senderCoins) {
+      if (senderUser.balance < senderCoins) {
         interaction.editReply("You don't have enough coins to trade.");
         return;
       }
 
-      userLevel.xp -= senderCoins;
-      targetLevel.xp += senderCoins;
-
-      if (targetLevel.xp < targetCoins) {
+      if (targetUser.balance < targetCoins) {
         interaction.editReply("The target user doesn't have enough coins to trade.");
         return;
       }
 
-      userLevel.xp += targetCoins;
-      targetLevel.xp -= targetCoins;
+      senderUser.balance -= senderCoins;
+      targetUser.balance -= targetCoins;
 
-      await Promise.all([userLevel.save(), targetLevel.save()]);
+      senderUser.balance += targetCoins;
+      targetUser.balance += senderCoins;
+
+      // Save the updated user data to the database
+      await senderUser.save();
+      await targetUser.save();
+
+      if (senderItems && senderItems.length > 0) {
+        for (const itemName of senderItems) {
+          if (senderUser.inventory.includes(itemName)) {
+            senderUser.inventory = senderUser.inventory.filter(item => item !== itemName);
+            targetUser.inventory.push(itemName);
+          }
+        }
+      }
+
+      if (targetItems && targetItems.length > 0) {
+        for (const itemName of targetItems) {
+          if (targetUser.inventory.includes(itemName)) {
+            targetUser.inventory = targetUser.inventory.filter(item => item !== itemName);
+            senderUser.inventory.push(itemName);
+          }
+        }
+      }
+
+      // Save the updated user data to the database
+      await senderUser.save();
+      await targetUser.save();
 
       interaction.editReply(`Trade successful. You traded ${senderCoins} coins for ${targetCoins} coins with the target user.`);
     } catch (error) {
@@ -58,27 +121,4 @@ module.exports = {
       interaction.editReply('An error occurred while running the command.');
     }
   },
-
-  name: 'trade',
-  description: 'Trade coins with another user.',
-  options: [
-    {
-      name: 'target-user',
-      description: 'The user to trade with.',
-      type: ApplicationCommandOptionType.User,
-      required: true,
-    },
-    {
-      name: 'sender-coins',
-      description: 'The amount of coins to trade from your side.',
-      type: ApplicationCommandOptionType.Integer,
-      required: true,
-    },
-    {
-      name: 'target-coins',
-      description: 'The amount of coins to trade from the target user.',
-      type: ApplicationCommandOptionType.Integer,
-      required: true,
-    },
-  ],
 };

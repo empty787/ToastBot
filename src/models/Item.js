@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const itemSchema = new mongoose.Schema({
+const itemSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -9,7 +9,18 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // Add any additional fields you need for an item
+  guildId: {
+    type: String,
+    required: null,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
+  inventory: {
+    type: [String], // Array of strings
+    default: [], // Default value as an empty array
+  },
 });
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = model('Item', itemSchema);

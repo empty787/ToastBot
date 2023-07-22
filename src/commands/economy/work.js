@@ -1,12 +1,7 @@
 const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
-const Level = require('../../models/Level');
+const User = require('../../models/User'); // Assuming you have the User model defined correctly
 
 module.exports = {
-  /**
-   *
-   * @param {Client} client
-   * @param {Interaction} interaction
-   */
   callback: async (client, interaction) => {
     if (!interaction.inGuild()) {
       interaction.reply('You can only run this command inside a server.');
@@ -19,14 +14,15 @@ module.exports = {
       const userId = interaction.member.id;
       const guildId = interaction.guild.id;
 
-      const userLevel = await Level.findOne({ userId, guildId });
+      // Fetch the user's data from the database
+      const user = await User.findOne({ userId, guildId });
 
-      if (!userLevel) {
-        interaction.editReply("You don't have a level entry.");
+      if (!user) {
+        interaction.editReply("You don't have a user entry.");
         return;
       }
 
-      const lastWorkedAt = userLevel.lastWorkedAt || 0;
+      const lastWorkedAt = user.lastWorkedAt || 0;
       const cooldown = 10 * 60 * 60 * 1000; // 10 hours in milliseconds
 
       const currentTime = Date.now();
@@ -52,12 +48,12 @@ module.exports = {
       const selectedJob = workOptions[randomIndex];
 
       // Calculate the new balance after earning the reward
-      const newBalance = userLevel.xp + selectedJob.reward;
+      const newBalance = user.balance + selectedJob.reward;
 
       // Update the user's balance and last worked timestamp in the database
-      userLevel.xp = newBalance;
-      userLevel.lastWorkedAt = currentTime;
-      await userLevel.save();
+      user.balance = newBalance;
+      user.lastWorkedAt = currentTime;
+      await user.save();
 
       interaction.editReply(`You worked as ${selectedJob.job} and earned ${selectedJob.reward} DolphinBucks. Your new balance is ${newBalance} DolphinBucks. <:Dolphin:978832169474605086>`);
     } catch (error) {
