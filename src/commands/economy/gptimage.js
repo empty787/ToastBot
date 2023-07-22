@@ -52,6 +52,7 @@ module.exports = {
       // Create an embed with the generated AI image
       const embed = {
         title: `Generated AI Image: ${selectedPrompt}`,
+        color: 0x964B00,
         image: {
           url: image,
         },
