@@ -1,7 +1,7 @@
 const { Client, Interaction } = require('discord.js');
 const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
-const User = require('../../models/User'); // Import the User model
+const User = require('../../models/User');
 
 module.exports = {
   name: 'profile',
@@ -31,16 +31,84 @@ module.exports = {
       const requiredXp = calculateLevelXp(level);
       const balance = fetchedUser ? fetchedUser.balance : 0;
 
-      const embed = {
-        title: `Profile of ${targetUser.username}`,
-        description: `Level: ${level}\nXP: ${xp}/${requiredXp}\nBalance: ${balance}`, // Add the balance information
-        color: 0x964B00,
-        image: {
-          url: avatarURL,
-        },
+      // Create buttons for each piece of information
+      const levelButton = {
+        type: 2,
+        style: 1,
+        label: 'Level',
+        customId: 'level',
       };
 
-      interaction.reply({ embeds: [embed] });
+      const xpButton = {
+        type: 2,
+        style: 1,
+        label: 'XP',
+        customId: 'xp',
+      };
+
+      const balanceButton = {
+        type: 2,
+        style: 1,
+        label: 'Balance',
+        customId: 'balance',
+      };
+
+      // Create an action row with the buttons
+      const actionRow = {
+        type: 1,
+        components: [levelButton, xpButton, balanceButton],
+      };
+
+      // Send the initial message with the action row
+      await interaction.reply({
+        content: 'Please select an option to view:',
+        embeds: [
+          {
+            title: `Profile of ${targetUser.username}`,
+            description: `Level: ${level}\nXP: ${xp}/${requiredXp}\nBalance: ${balance}`,
+            color: 0x964B00,
+            image: {
+              url: avatarURL,
+            },
+          },
+        ],
+        components: [actionRow],
+      });
+
+      const filter = (buttonInteraction) =>
+        buttonInteraction.user.id === interaction.user.id && buttonInteraction.isButton() && actionRow.components.some((button) => button.customId === buttonInteraction.customId);
+
+      const collector = interaction.channel.createMessageComponentCollector({
+        filter,
+        time: 60000,
+      });
+
+      collector.on('collect', async (buttonInteraction) => {
+        let responseMessage = '';
+
+        // Handle button interactions based on the selected option
+        switch (buttonInteraction.customId) {
+          case 'level':
+            responseMessage = `Your level is: ${level}`;
+            break;
+          case 'xp':
+            responseMessage = `Your XP is: ${xp}/${requiredXp}`;
+            break;
+          case 'balance':
+            responseMessage = `Your balance is: ${balance}`;
+            break;
+        }
+
+        // Update the message with the selected information
+        await buttonInteraction.update({
+          content: responseMessage,
+          components: [actionRow], // Re-add the action row to the updated message
+        });
+      });
+
+      collector.on('end', () => {
+        interaction.followUp('The menu has closed.');
+      });
     } catch (error) {
       console.error('Error fetching user profile:', error);
       interaction.reply('An error occurred while fetching your profile.');
