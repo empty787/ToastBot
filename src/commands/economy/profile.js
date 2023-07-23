@@ -53,10 +53,17 @@ module.exports = {
         customId: 'balance',
       };
 
+      const fullProfileButton = {
+        type: 2,
+        style: 1,
+        label: 'Full Profile',
+        customId: 'full_profile',
+      };
+
       // Create an action row with the buttons
       const actionRow = {
         type: 1,
-        components: [levelButton, xpButton, balanceButton],
+        components: [levelButton, xpButton, balanceButton, fullProfileButton],
       };
 
       // Send the initial message with the action row
@@ -84,24 +91,37 @@ module.exports = {
       });
 
       collector.on('collect', async (buttonInteraction) => {
-        let responseMessage = '';
+        let embedDescription = '';
 
         // Handle button interactions based on the selected option
         switch (buttonInteraction.customId) {
           case 'level':
-            responseMessage = `Your level is: ${level}`;
+            embedDescription = `**Level:** ${level}`;
             break;
           case 'xp':
-            responseMessage = `Your XP is: ${xp}/${requiredXp}`;
+            embedDescription = `**XP:** ${xp}/${requiredXp}`;
             break;
           case 'balance':
-            responseMessage = `Your balance is: ${balance}`;
+            embedDescription = `**Balance:** ${balance}`;
+            break;
+          case 'full_profile':
+            embedDescription = `**Full Profile of ${targetUser.username}**\n\n**Level:** ${level}\n**XP:** ${xp}/${requiredXp}\n**Balance:** ${balance}`;
             break;
         }
 
+        // Create the embed
+        const embed = {
+          title: `Profile of ${targetUser.username}`,
+          description: embedDescription,
+          color: 0x964B00,
+          image: {
+            url: avatarURL,
+          },
+        };
+
         // Update the message with the selected information
         await buttonInteraction.update({
-          content: responseMessage,
+          embeds: [embed],
           components: [actionRow], // Re-add the action row to the updated message
         });
       });

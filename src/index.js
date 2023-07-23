@@ -41,7 +41,7 @@ let status = [
     type: ActivityType.Playing,
   },
   {
-    name: 'SUB 2 DOLPHINNOTFOUND',
+    name: 'to DolphTunes',
     type: ActivityType.Listening
   },
 ];
@@ -110,6 +110,10 @@ client.on('guildMemberAdd', async (member) => {
 client.on('messageCreate', (message) => {
   if (message.author.bot) {
     return;
+  }
+
+  if (message.content === '!ping') {
+    message.reply('Pong! 🏓');
   }
 
   if (message.mentions.users.has(client.user.id)) {
