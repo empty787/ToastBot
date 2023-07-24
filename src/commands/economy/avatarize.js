@@ -1,5 +1,5 @@
 const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
-const { createCanvas, registerFont, loadImage } = require('canvas');
+const { createCanvas, loadImage } = require('canvas');
 
 module.exports = {
   /**
@@ -22,21 +22,19 @@ module.exports = {
     const gradientColor2 = interaction.options.get('gradient-color-2')?.value || '#00FF00';
     const lineWidth = interaction.options.get('line-width')?.value || 5;
     const userOption = interaction.options.get('user');
-    const user = userOption ? userOption.member : interaction.member;
-    const textAnimation = interaction.options.get('text-animation')?.value || 'none';
-    const emojis = interaction.options.get('emojis')?.value || '';
+    const user = userOption ? userOption.user : interaction.user;
 
     // Get the user's avatar URL
-    const avatarURL = user.user.displayAvatarURL({ format: 'png', size: 256 });
+    const avatarURL = user.displayAvatarURL({ extension: 'png', size: 256 });
 
-    // Load the background image
-    const backgroundImage = await loadImage('https://s3.amazonaws.com/ssrc-static/wp-content/uploads/2022/04/07131756/space-g25e2d7df9_1920-1000x333.jpg'); // Replace with your desired background image URL
+    // Load the user's avatar as the background image
+    const backgroundImage = await loadImage(avatarURL);
 
     // Create a canvas
     const canvas = createCanvas(backgroundImage.width, backgroundImage.height);
     const ctx = canvas.getContext('2d');
 
-    // Draw the background image on the canvas
+    // Draw the user's avatar as the background image
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     // Set the font style and size
@@ -72,53 +70,8 @@ module.exports = {
     ctx.lineTo(350, 300);
     ctx.stroke();
 
-    // Apply text animation if specified
-    switch (textAnimation) {
-      case 'none':
-        // Draw the quote text on the canvas without animation
-        ctx.fillText(quote, canvas.width / 2, canvas.height / 2);
-        break;
-      case 'scroll':
-        // Draw the quote text on the canvas with scrolling animation
-        const textWidth = ctx.measureText(quote).width;
-        let offset = (canvas.width - textWidth) / 2;
-        const animationSpeed = 3; // Adjust animation speed as needed
-        setInterval(() => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = gradient;
-          ctx.fillRect(50, 50, 300, 200);
-          ctx.lineWidth = lineWidth;
-          ctx.strokeStyle = fontColor;
-          ctx.beginPath();
-          ctx.moveTo(50, 300);
-          ctx.lineTo(350, 300);
-          ctx.stroke();
-          ctx.font = `${fontSize} ${fontFamily}`;
-          ctx.fillStyle = fontColor;
-          ctx.textAlign = 'center';
-          ctx.fillText(quote, offset, canvas.height / 2);
-          offset -= animationSpeed;
-          if (offset < -textWidth) {
-            offset = canvas.width;
-          }
-        }, 1000 / 60); // Adjust animation speed as needed
-        break;
-      default:
-        // Draw the quote text on the canvas without animation
-        ctx.fillText(quote, canvas.width / 2, canvas.height / 2);
-        break;
-    }
-
-    // Draw emojis on the canvas
-    const emojiSize = 50; // Adjust emoji size as needed
-    const emojisArray = emojis.split('');
-    let emojiX = 50;
-    const emojiY = canvas.height - emojiSize - 20; // Adjust emoji position as needed
-    emojisArray.forEach((emoji) => {
-      ctx.fillText(emoji, emojiX, emojiY);
-      emojiX += emojiSize;
-    });
+    // Draw the quote text on the canvas
+    ctx.fillText(quote, canvas.width / 2, canvas.height / 2);
 
     // Convert the canvas to a buffer
     const buffer = canvas.toBuffer('image/png');
@@ -128,7 +81,7 @@ module.exports = {
   },
 
   name: 'avatarize',
-  description: 'Decorate this cool space background image!',
+  description: 'Generate an image with a custom quote, insert shape, put gradient color, and display user avatar!',
   options: [
     {
       name: 'quote',
@@ -192,28 +145,6 @@ module.exports = {
       name: 'user',
       description: 'The user for whom to display the avatar',
       type: ApplicationCommandOptionType.User,
-      required: false,
-    },
-    {
-      name: 'text-animation',
-      description: 'The animation effect for the quote text',
-      type: ApplicationCommandOptionType.String,
-      choices: [
-        {
-          name: 'None',
-          value: 'none',
-        },
-        {
-          name: 'Scroll',
-          value: 'scroll',
-        },
-      ],
-      required: false,
-    },
-    {
-      name: 'emojis',
-      description: 'The emojis to be displayed on the canvas',
-      type: ApplicationCommandOptionType.String,
       required: false,
     },
   ],
