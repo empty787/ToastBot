@@ -3,13 +3,15 @@ const Level = require('../../models/Level');
 
 module.exports = {
   /**
-   *
    * @param {Client} client
    * @param {Interaction} interaction
    */
   callback: async (client, interaction) => {
     if (!interaction.inGuild()) {
-      interaction.reply('You can only run this command inside a server.');
+      interaction.reply({
+        content: 'You can only run this command inside a server.',
+        ephemeral: true,
+      });
       return;
     }
 
@@ -26,16 +28,23 @@ module.exports = {
         return;
       }
 
-      let leaderboard = 'Leaderboard:\n';
+      const leaderboardEmbed = {
+        color: 0x8C6A43, // Brown color
+        title: 'Leaderboard:',
+        fields: [],
+      };
 
       for (let i = 0; i < allLevels.length; i++) {
         const levelData = allLevels[i];
         const user = await interaction.guild.members.fetch(levelData.userId);
 
-        leaderboard += `> ${i + 1}. ${user.user.tag} - Level: ${levelData.level} - XP: ${levelData.xp}\n`;
+        leaderboardEmbed.fields.push({
+          name: `${i + 1}. ${user.user.tag}`,
+          value: `Level: ${levelData.level} - XP: ${levelData.xp}`,
+        });
       }
 
-      interaction.editReply(leaderboard);
+      interaction.editReply({ embeds: [leaderboardEmbed] });
     } catch (error) {
       console.error('Error retrieving leaderboard:', error);
       interaction.editReply('An error occurred while retrieving the leaderboard.');
