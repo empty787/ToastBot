@@ -5,7 +5,7 @@ const User = require('../../models/User');
 
 module.exports = {
   name: 'profile',
-  description: 'Shows your DolphWorld economy profile or account! :)',
+  description: 'Shows your DolphWorld economy profile or account!',
 
   callback: async (client, interaction) => {
     const targetUser = interaction.user;

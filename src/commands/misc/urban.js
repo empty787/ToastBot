@@ -14,6 +14,7 @@ const prompts = [
 module.exports = {
   name: 'urban',
   description: 'backrooms lores',
+
   callback: (client, interaction) => {
     const randomIndex = Math.floor(Math.random() * prompts.length);
     const randomPrompt = prompts[randomIndex];
