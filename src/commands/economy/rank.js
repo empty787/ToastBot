@@ -93,9 +93,9 @@ ctx.lineWidth = 4; // Width of the outline
 
 // Calculate the dimensions of the rounded rectangle
 const rectPadding = 10;
-const rectWidth = textWidth + rectPadding * 2 + 140;
+const rectWidth = textWidth + rectPadding * 2 + 210;
 const rectHeight = 130;
-const rectX = (canvas.width - rectWidth) / 2 + 220;
+const rectX = (canvas.width - rectWidth) / 2 + 260;
 const rectY = 70;
 
 // Draw the rounded rectangle as the outline
@@ -115,23 +115,10 @@ ctx.stroke();
     ctx.fillText(levelText, textX, textY + 40); // Adjust Y position for level
     ctx.fillText(xpText, textX, textY + 80); // Adjust Y position for XP
 
-    // Draw the user's avatar as a circle in the center with increased size
-    const avatarSize = 200; // Increased size for the avatar
-    const avatarX = 100;
-    const avatarY = (canvas.height - avatarSize) / 2; // Centered vertically
-    const avatarImage = await loadImage(interaction.user.displayAvatarURL({ extension: 'png', size: 512 }));
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, avatarSize / 2, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(avatarImage, avatarX, avatarY, avatarSize, avatarSize);
-    ctx.restore();
-
     // Draw the progress bar in the middle
     const progressBarWidth = 600;
     const progressBarHeight = 50;
-    const progressBarX = (canvas.width - progressBarWidth) / 2 + 80;
+    const progressBarX = (canvas.width - progressBarWidth) / 2 + 110;
     const progressBarY = canvas.height - 120;
 
     const progress = Math.min(userLevel.xp / calculateLevelXp(userLevel.level), 1);
@@ -150,12 +137,35 @@ ctx.strokeRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight);
     ctx.fillRect(progressBarX, progressBarY, progressBarFillWidth, progressBarHeight); // Left part of the progress bar
     ctx.fillRect(progressBarX + progressBarFillWidth, progressBarY, progressBarWidth - progressBarFillWidth, progressBarHeight); // Right part of the progress bar
 
-    // Convert the canvas to a buffer
-    const buffer = canvas.toBuffer('image/png');
+    // Draw the user's avatar as a circle in the center with increased size
+    const avatarSize = 200; // Increased size for the avatar
+    const avatarX = 100;
+    const avatarY = (canvas.height - avatarSize) / 2; // Centered vertically
+    const avatarImage = await loadImage(interaction.user.displayAvatarURL({ extension: 'png', size: 512 }));
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, avatarSize / 2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(avatarImage, avatarX, avatarY, avatarSize, avatarSize);
+    ctx.restore();
 
-    // Send the generated rank card as a reply
-    await interaction.editReply({ files: [buffer] });
-  },
+    // Draw the outline for the user's avatar
+const outlineRadius = avatarSize / 2 + 5; // Increase the size by 5 to create the outline
+ctx.beginPath();
+ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, outlineRadius, 0, Math.PI * 2);
+ctx.strokeStyle = '#00FFFF'; // Cyan color for the outline
+ctx.lineWidth = 5; // Width of the outline
+ctx.stroke();
+ctx.closePath();
+
+  // Convert the canvas to a buffer
+  const buffer = canvas.toBuffer('image/png');
+
+  // Send the generated rank card as a reply
+  await interaction.editReply({ files: [buffer] });
+},
+
 
   name: 'rank',
   description: "Shows your/someone's rank card.",
