@@ -24,3 +24,4 @@ deleted: true, // this is where the deleted code should go!
 
 // put your code below
 
+the models or schemas folder is a super important folder! i recommend you dont delete it!
