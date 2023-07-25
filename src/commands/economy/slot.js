@@ -1,11 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
-  data: {
-    name: 'slot',
-    description: 'Play a slot machine game.',
-  },
-  async execute(interaction) {
+  name: 'slot',
+  description: 'Play a slot machine game.',
+
+  callback: (client, interaction) => {
     const emojis = ['🍇', '🍊', '🍒', '🍓', '🍉']; // Add more emojis if desired
 
     // Generate random results
@@ -16,12 +13,17 @@ module.exports = {
     // Check if all results are the same
     const isWin = result1 === result2 && result2 === result3;
 
-    // Build the slot machine display
-    const embed = new MessageEmbed()
-      .setTitle('Slot Machine')
-      .setDescription(`[ ${result1} | ${result2} | ${result3} ]\n\n${isWin ? 'You win!' : 'You lose!'}`)
-      .setColor(isWin ? 'GREEN' : 'RED');
+    // Build the slot machine display manually
+    const response = `**Slot Machine**\n[ ${result1} | ${result2} | ${result3} ]\n\n${isWin ? 'You win!' : 'You lose!'}`;
 
-    await interaction.reply({ embeds: [embed] });
+    // Create a brown-colored embed
+    const embed = {
+      color: parseInt('8C6A43', 16), // Brown color (convert hexadecimal to integer)
+      title: 'Slot Machine',
+      description: `${result1} | ${result2} | ${result3}\n\n${isWin ? 'You win!' : 'You lose!'}`,
+    };
+
+    // Send the embed as a reply
+    interaction.reply({ embeds: [embed] });
   },
 };
