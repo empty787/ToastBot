@@ -13,6 +13,10 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  bankBalance: { 
+    type: Number,
+    default: 0,
+  },
   lastDaily: {
     type: Date,
     default: Date.now, // Set the default value to the current date and time

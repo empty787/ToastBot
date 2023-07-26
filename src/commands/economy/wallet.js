@@ -33,8 +33,8 @@ module.exports = {
       title: `${interaction.user.username}'s Wallet`,
       description: `Here's your wallet balance and progress:`,
       fields: [
-        { name: 'Balance', value: `${user.balance} credits`, inline: true },
-        { name: 'Progress', value: generateProgressBar(user.balance), inline: true }
+        { name: '`Balance`', value: `${user.balance} credits`, inline: true },
+        { name: '`Progress`', value: generateProgressBar(user.balance), inline: true }
       ],
       thumbnail: {
         url: 'https://i.imgur.com/CQiKstK.jpg',

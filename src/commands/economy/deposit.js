@@ -16,15 +16,7 @@ module.exports = {
     await interaction.deferReply();
 
     try {
-      const userId = interaction.member.user.id;
-
-      const user = await User.findOne({ id: userId });
-
-      if (!user) {
-        interaction.editReply("You don't have an account.");
-        return;
-      }
-
+      const targetUserId = interaction.user.id;
       const amount = interaction.options.getInteger('amount');
 
       if (!amount || amount <= 0) {
@@ -32,14 +24,16 @@ module.exports = {
         return;
       }
 
-      if (user.currency < amount) {
-        interaction.editReply("You don't have enough currency to deposit.");
+      const user = await User.findOneAndUpdate(
+        { userId: targetUserId, guildId: interaction.guild.id },
+        { $inc: { balance: -amount, bankBalance: amount } },
+        { new: true }
+      );
+
+      if (!user) {
+        interaction.editReply("You don't have an account.");
         return;
       }
-
-      user.currency -= amount;
-      user.bankBalance += amount;
-      await user.save();
 
       interaction.editReply(`Successfully deposited ${amount} currency to your bank account.`);
     } catch (error) {

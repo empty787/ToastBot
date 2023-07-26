@@ -1,6 +1,17 @@
 const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
 const User = require('../../models/User');
 
+// Function to generate a progress bar based on the user's balance
+function generateProgressBar(balance) {
+  const maxBalance = 90000000000000;
+  const progressBarLength = 20; // Length of the progress bar
+  const progress = Math.min(balance / maxBalance, 1);
+  const progressBarFilled = Math.round(progress * progressBarLength);
+  const progressBarEmpty = progressBarLength - progressBarFilled;
+  const percentage = (progress * 100).toFixed(2); // Calculate the percentage to two decimal places
+  return `[${'■'.repeat(progressBarFilled)}${'□'.repeat(progressBarEmpty)}] ${percentage}%`;
+}
+
 module.exports = {
   /**
    *
@@ -16,22 +27,45 @@ module.exports = {
       return;
     }
 
-    const targetUserId = interaction.options.get('user')?.value || interaction.member.id;
-
     await interaction.deferReply();
 
-    const user = await User.findOne({ userId: targetUserId, guildId: interaction.guild.id });
+    try {
+      const targetUserId = interaction.options.get('user')?.value || interaction.member.id;
+      const user = await User.findOne({ userId: targetUserId, guildId: interaction.guild.id });
 
-    if (!user) {
-      interaction.editReply(`<@${targetUserId}> doesn't have a profile yet.`);
-      return;
+      if (!user) {
+        interaction.editReply(`<@${targetUserId}> doesn't have a profile yet.`);
+        return;
+      }
+
+      const targetUser = await client.users.fetch(targetUserId);
+
+      const balanceEmbed = {
+        color: 0x0099ff,
+        title: `${targetUser.username} Balance and Progress`,
+        description: `Here's the balance, progress, and deposited amount in the bank of ${
+          targetUserId === interaction.member.id ? 'your' : `<@${targetUserId}>`
+        } account:`,
+        thumbnail: {
+          url: targetUser.displayAvatarURL({ dynamic: true }),
+        },
+        fields: [
+          { name: '`- Balance`', value: `\`${user.balance} OMG\``, inline: true },
+          { name: '`- Bank Deposit`', value: `\`${user.bankBalance || 0} OMG\``, inline: true },
+          { name: '`- Progress`', value: generateProgressBar(user.balance), inline: true },
+        ],
+        footer: {
+          text: 'DolphinNotBot - Created by DolphinNotFound',
+          icon_url: 'https://i.imgur.com/CQiKstK.jpg', // Bot's avatar or any other icon
+        },
+        timestamp: new Date(),
+      };
+
+      await interaction.editReply({ embeds: [balanceEmbed] });
+    } catch (error) {
+      console.error('Error running balance command:', error);
+      interaction.editReply('An error occurred while running the command.');
     }
-
-    interaction.editReply(
-      targetUserId === interaction.member.id
-        ? `Your balance is **${user.balance}**`
-        : `<@${targetUserId}>'s balance is **${user.balance} <:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:DolphinBucks:1127314182648373291>  **`
-    );
   },
 
   name: 'balance',
