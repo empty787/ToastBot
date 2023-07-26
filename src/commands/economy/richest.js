@@ -38,7 +38,7 @@ module.exports = {
 
       const embed = {
         color: 0x8C6A43, // Brown color
-        title: 'Top 10 Richest Users in this Guild:',
+        title: '💰🪙`Top 10 Richest Users in this Guild`🪙💰:',
         description: leaderboard.join('\n'),
       };
 

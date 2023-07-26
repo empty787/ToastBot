@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction } = require('discord.js');
 const { createCanvas, loadImage } = require('canvas');
 const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
@@ -18,7 +18,9 @@ module.exports = {
       return;
     }
 
-    const targetUserId = interaction.options.get('user')?.value || interaction.user.id;
+    const mentionedUserId = interaction.options.get('target-user')?.value;
+    const targetUserId = mentionedUserId || interaction.user.id;
+    const targetUserObj = await interaction.guild.members.fetch(targetUserId);
 
     await interaction.deferReply();
 
@@ -81,7 +83,8 @@ ctx.fill();
     const fontColor = '#FFFFFF';
 
     // Draw the user's username, level, and XP at the top with increased font size
-    const usernameText = interaction.user.username;
+    const usernameText = targetUserObj.user.username;
+    // const usernameText = interaction.user.username;
     const levelText = `Level: ${userLevel.level}`;
     const xpText = `XP: ${userLevel.xp}/${calculateLevelXp(userLevel.level)}`;
     const textWidth = Math.max(ctx.measureText(usernameText).width, ctx.measureText(levelText).width, ctx.measureText(xpText).width);
@@ -141,7 +144,9 @@ ctx.strokeRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight);
     const avatarSize = 200; // Increased size for the avatar
     const avatarX = 100;
     const avatarY = (canvas.height - avatarSize) / 2; // Centered vertically
-    const avatarImage = await loadImage(interaction.user.displayAvatarURL({ extension: 'png', size: 512 }));
+    // const avatarImage = await loadImage(interaction.user.displayAvatarURL({ extension: 'png', size: 512 }));
+    const avatarURL = targetUserObj.user.displayAvatarURL({ extension: 'png', size: 512 });
+    const avatarImage = await loadImage(avatarURL);
     ctx.save();
     ctx.beginPath();
     ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, avatarSize / 2, 0, Math.PI * 2);
@@ -171,9 +176,9 @@ ctx.closePath();
   description: "Shows your/someone's rank card.",
   options: [
     {
-      name: 'user',
+      name: 'target-user',
       description: 'The user whose rank card you want to see.',
-      type: ApplicationCommandOptionType.User,
+      type: 9, 
     },
   ],
 };

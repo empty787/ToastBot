@@ -30,7 +30,7 @@ module.exports = {
 
       const leaderboardEmbed = {
         color: 0x8C6A43, // Brown color
-        title: 'Leaderboard:',
+        title: '🔹`Leaderboard`🔹:',
         fields: [],
       };
 
