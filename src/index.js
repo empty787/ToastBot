@@ -42,11 +42,6 @@ client.on('guildMemberAdd', async (member) => {
   }
 });
 
-// Message commands
-client.on('messageCreate', (message) => {
-  handleCommands(message, client);
-});
-
 // ChatGPT chat (experimental for my bot)
 // client.on("messageCreate", (message) => {
 //  handleChatGpt(message, client);
