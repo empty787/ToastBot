@@ -1,9 +1,10 @@
 require('dotenv').config();
 const { Client, IntentsBitField, ActivityType, WebhookClient } = require('discord.js');
+const messageCommandHandler = require('./other/messageCmdHandler');
 const { logJoin, logLeave } = require('./other/logger');
 const { generateWelcomeCard } = require('./other/welcome');
 const status = require('./other/status');
-const { handleCommands } = require('./other/messageCommands');
+const { handleCommands } = require('./other/messageCmdHandler');
 const { handleChatGpt } = require("./other/chatbot");
 const { createCanvas, loadImage } = require('canvas');
 const mongoose = require('mongoose');
@@ -42,6 +43,11 @@ client.on('guildMemberAdd', async (member) => {
   }
 });
 
+// Message commands
+client.on('messageCreate', (message) => {
+handleCommands(message, client);
+});
+
 // ChatGPT chat (experimental for my bot)
 // client.on("messageCreate", (message) => {
 //  handleChatGpt(message, client);
@@ -55,6 +61,12 @@ client.on('guildCreate', async (guild) => {
 // Event: When the bot leaves a server (guild)
 client.on('guildDelete', async (guild) => {
   logLeave(client, guild);
+});
+
+// Message Command Handler
+client.on('message', (message) => {
+  // Call the handleCommands function from messageCommandHandler
+  messageCommandHandler.handleCommands(message, client);
 });
 
 (async () => {
