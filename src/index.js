@@ -5,7 +5,7 @@ const { logJoin, logLeave } = require('./other/logger');
 const { generateWelcomeCard } = require('./other/welcome');
 const status = require('./other/status');
 const { handleCommands } = require('./other/messageCmdHandler');
-const { handleChatGpt } = require("./other/chatbot");
+const { generateReply } = require('./other/chatbot');
 const { createCanvas, loadImage } = require('canvas');
 const mongoose = require('mongoose');
 const eventHandler = require('./handlers/eventHandler');
@@ -43,15 +43,21 @@ client.on('guildMemberAdd', async (member) => {
   }
 });
 
+client.on('messageCreate', async (message) => {
+  try {
+    // Use the generateReply function from openaiHandler
+    const reply = await generateReply(message, client);
+
+    // Handle the reply if needed...
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+});
+
 // Message commands
 client.on('messageCreate', (message) => {
 handleCommands(message, client);
 });
-
-// ChatGPT chat (experimental for my bot)
-// client.on("messageCreate", (message) => {
-//  handleChatGpt(message, client);
-// });
 
 // join server
 client.on('guildCreate', async (guild) => {

@@ -1,49 +1,78 @@
-const { OpenAIApi, Configuration } = require("openai");
+const { Configuration, OpenAIApi } = require('openai');
+const context = require('./context');
 
-const config = new Configuration({
-  apiKey: process.env.OPENAI_KEY,
+const configuration = new Configuration({
+  organization: process.env.OPENAI_ORGANIZATION,
+  apiKey: process.env.OPENAI_API_KEY,
 });
+const openai = new OpenAIApi(configuration);
 
-const openai = new OpenAIApi(config);
+const msgLengthLimit = 2000;
 
-// Function to handle the AI chat functionality
-async function handleChatGpt(message, client) {
-  if (message.author.bot) return;
-  if (message.channel.id !== "your_chatbot_channel") return;
+async function generateReply(message, client) {
+  try {
+    if (message.author.bot) return;
+    if (message.channel.id !== process.env.CHAT_BOT_CHANNEL) return;
+    if (message.content.startsWith('!')) return;
 
-  message.channel.sendTyping();
+    await message.channel.sendTyping();
 
-  let messages = Array.from(
-    await message.channel.messages.fetch({
-      limit: 5,
-      before: message.id,
-    })
-  );
-  messages = messages.map((m) => m[1]);
-  messages.unshift(message);
+    if (message.content.length > msgLengthLimit) {
+      message.reply("Whoa now, I'm not going to read all that. Maybe summarize?");
+      return;
+    }
 
-  let users = [
-    ...new Set([...messages.map((m) => m.member.displayName), client.user.username]),
-  ];
-  let lastUser = users.pop();
+    // Rest of the code (message processing, conversation log, and OpenAI interaction)...
+    const prevMessages = await message.channel.messages.fetch({ limit: 15 });
+    const prevMessagesArray = Array.from(prevMessages.values()); // Convert to an array
 
-  let prompt = `The following is a conversation between ${users.join(", ")}, and ${lastUser}. \n\n`;
+    let conversationLog = [{ role: 'system', content: context }];
 
-  for (let i = messages.length - 1; i >= 0; i--) {
-    const m = messages[i];
-    prompt += `${m.member.displayName}: ${m.content}\n`;
+    for (const msg of prevMessagesArray.reverse()) {
+      if (msg.content.startsWith('!')) continue;
+      if (msg.content.length > msgLengthLimit) continue;
+      if (msg.author.id !== client.user.id && msg.author.bot) continue;
+
+      if (msg.author.id === client.user.id) {
+        conversationLog.push({
+          role: 'assistant',
+          content: `${msg.content}`,
+        });
+      } else {
+        if (msg.author.id !== message.author.id) continue;
+
+        conversationLog.push({
+          role: 'user',
+          content: `${msg.content}`,
+        });
+      }
+    }
+
+    const res = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: conversationLog,
+    });
+
+    let reply = res.data.choices[0].message?.content;
+
+    if (reply?.length > 2000) {
+      const buffer = Buffer.from(reply, 'utf8');
+      const txtFile = new AttachmentBuilder(buffer, { name: `${message.author.tag}_response.txt` });
+
+      message.reply({ files: [txtFile] }).catch(() => {
+        message.channel.send({ content: `${message.author}`, files: [txtFile] });
+      });
+    } else {
+      message.reply(reply).catch(() => {
+        message.channel.send(`${message.author} ${reply}`);
+      });
+    }
+
+    return reply;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+    return null;
   }
-  prompt += `${client.user.username}:`;
-
-  const response = await openai.createCompletion({
-    prompt,
-    model: "text-davinci-003",
-    max_tokens: 500,
-    stop: ["\n"],
-  });
-
-  await message.channel.send(response.data.choices[0].text);
 }
 
-module.exports = { handleChatGpt };
-
+module.exports = { generateReply };
