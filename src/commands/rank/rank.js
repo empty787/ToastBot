@@ -173,7 +173,7 @@ ctx.closePath();
 
 
   name: 'rank',
-  description: "Shows your/someone's rank card.",
+  description: "Shows your or someone's rank card.",
   options: [
     {
       name: 'target-user',
