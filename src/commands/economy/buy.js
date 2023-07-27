@@ -1,7 +1,7 @@
 const { Client, Interaction } = require('discord.js');
 const User = require('../../models/User');
 const Item = require('../../models/Item');
-
+ 
 const shopItems = [
   { name: 'Super Sword', price: 500 },
   { name: 'Magic Potion', price: 200 },
