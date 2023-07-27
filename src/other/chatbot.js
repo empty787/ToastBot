@@ -15,6 +15,12 @@ async function generateReply(message, client) {
     if (message.channel.id !== process.env.CHAT_BOT_CHANNEL) return;
     if (message.content.startsWith('!')) return;
 
+    // Check for specific keywords and respond directly without using OpenAI API
+    if (message.content.toLowerCase() === 'hi' || message.content.toLowerCase() === 'hello') {
+      message.reply("Hey! I am DolphinNotBot!");
+      return;
+    }
+
     await message.channel.sendTyping();
 
     if (message.content.length > msgLengthLimit) {
