@@ -5,6 +5,7 @@ const { logJoin, logLeave } = require('./other/logger');
 const { generateWelcomeCard } = require('./other/welcome');
 const status = require('./other/status');
 const { handleCommands } = require('./other/messageCmdHandler');
+const { handleVideoIdea } = require('./other/videoIdeas');
 const { generateReply } = require('./other/chatbot');
 const { createCanvas, loadImage } = require('canvas');
 const mongoose = require('mongoose');
@@ -57,6 +58,11 @@ client.on('messageCreate', async (message) => {
 // Message commands
 client.on('messageCreate', (message) => {
 handleCommands(message, client);
+});
+
+// handle video ideas
+client.on('messageCreate', (message) => {
+  handleVideoIdea(message);
 });
 
 // join server
