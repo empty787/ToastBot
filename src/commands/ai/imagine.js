@@ -38,9 +38,15 @@ module.exports = {
         components: [
           {
             type: 2, // BUTTON
-            style: 4, // Danger style
-            label: 'Danger!!! CLICK HERE FOR THE AI IMAGE!!!',
+            style: 3, // Danger style
+            label: '💬Click to view image💬',
             customId: 'Danger',
+          },
+          {
+            type: 2, // BUTTON
+            style: 5, // Link style
+            label: '🤓Download🤓',
+            url: output[0], // Direct link to the image
           },
         ],
       };
@@ -51,7 +57,7 @@ module.exports = {
           {
             title: 'OH NOOO AI TAKING OVER AHHHH HELPPImage Generated',
             description: `**Prompt:**\n${prompt}`,
-            color: 0xe32424, // Integer representation of the color
+            color: 0x964b00, // Integer representation of the color
             footer: {
               text: `Requested by ${interaction.user.username}`,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
@@ -67,15 +73,14 @@ module.exports = {
 
       await interaction.editReply(replyData);
 
-      const filter = (buttonInteraction) => buttonInteraction.isButton() && buttonInteraction.customId === 'Danger' && buttonInteraction.user.id === interaction.user.id;
+      const filter = (buttonInteraction) => buttonInteraction.isButton() && buttonInteraction.user.id === interaction.user.id;
       const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 
       collector.on('collect', async (buttonInteraction) => {
-        try {
+        // No need for switch cases, since there are only two buttons
+        if (buttonInteraction.customId === 'Danger') {
           // Reply with the generated image URL
           await buttonInteraction.reply(`Here is the AI-generated image: ${output[0]}`);
-        } catch (error) {
-          console.error('Error handling button click:', error);
         }
       });
 
