@@ -28,8 +28,12 @@ async function handleVideoIdea(message) {
     // Create and send the original message as an embed
     const ideaEmbed = {
       color: 0xff0000,
-      title: 'New Video Idea',
+      title: 'OMG N- N New Video Idea!!!',
       description: message.content,
+      author: {
+        name: message.author.tag,
+        icon_url: message.author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }),
+      },
       footer: {
         text: `Suggested by ${message.author.tag}`,
       },
@@ -42,6 +46,11 @@ async function handleVideoIdea(message) {
       // React to the sent message with thumbs up and thumbs down emojis
       await sentMessage.react('👍');
       await sentMessage.react('👎');
+      await sentMessage.react('🤓');
+      await sentMessage.react('🇼');
+
+      // Delete the original message
+      await message.delete();
     } catch (error) {
       console.error('Error sending the message:', error);
     }
