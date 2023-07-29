@@ -4,7 +4,7 @@ module.exports = {
   
     callback: (client, interaction) => {
       const embed = {
-        title: 'scammed! no more Dolphinbucks! the bank got robbed by the smiler',
+        title: '-_-',
         description: 'QWERTYYYYYY',
         color: 0x00ff00, // You can customize the color as desired
       };
