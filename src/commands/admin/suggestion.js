@@ -1,75 +1,55 @@
-const cooldowns = new Map();
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 
 module.exports = {
   name: 'suggestion',
-  description: 'Make a suggestion for DolphinNotBot! (Response will be sent to DolphWorld!)',
-  options: [
-    {
-      name: 'suggestion',
-      description: 'Make a suggestion for the bot!',
-      type: 3,
-      required: true,
-    },
-    {
-      name: 'topic',
-      description: 'The topic of the suggestion',
-      type: 3,
-      required: false,
-      choices: [
-        {
-          name: 'General',
-          value: 'general',
-        },
-        {
-          name: 'Slash Commands',
-          value: 'slash_commands',
-        },
-        {
-          name: 'Profile',
-          value: 'profile',
-        },
-        {
-          name: 'Other',
-          value: 'other',
-        },
-      ],
-    },
-  ],
+  description: "Your suggestion will be sent to DolphWorld (DolphinNotBot HQ)",
 
   callback: async (client, interaction) => {
     try {
-      const userId = interaction.user.id;
-      const cooldownDuration = 60 * 60 * 1000; // 1 hour in milliseconds
+      const modal = new ModalBuilder({
+        customId: `myModal-${interaction.user.id}`,
+        title: 'My Modal',
+      });
 
-      if (cooldowns.has(userId)) {
-        const cooldown = cooldowns.get(userId);
-        const remainingTime = cooldown + cooldownDuration - Date.now();
+      const suggestionInput = new TextInputBuilder({
+        customId: 'suggestionInput',
+        label: "Your suggestion",
+        style: TextInputStyle.Paragraph,
+      });
 
-        if (remainingTime > 0) {
-          await interaction.reply(`You can only make a suggestion once per hour. Please wait ${formatDuration(remainingTime)}.`);
-          return;
-        }
+      const topicInput = new TextInputBuilder({
+        customId: 'topicInput',
+        label: "Topic",
+        style: TextInputStyle.Short, // Use TextInputStyle.Short for a single-line topic input
+      });
+
+      const firstActionRow = new ActionRowBuilder().addComponents(suggestionInput);
+      const secondActionRow = new ActionRowBuilder().addComponents(topicInput);
+
+      modal.addComponents(firstActionRow, secondActionRow);
+
+      await interaction.showModal(modal);
+
+      const filter = (i) => i.customId === `myModal-${interaction.user.id}`;
+
+      const modalInteraction = await interaction.awaitModalSubmit({ filter, time: 30000 });
+
+      if (!modalInteraction) {
+        await interaction.followUp('You did not respond in time. The modal has closed.');
+        return;
       }
 
-      const message = interaction.options.getString('suggestion');
-      const topic = interaction.options.getString('topic') || 'General';
+      const suggestionValue = modalInteraction.components[0]?.components[0]?.value;
+      const topicValue = modalInteraction.components[1]?.components[0]?.value;
 
-      const embed = {
-        title: `Said by ${interaction.user.username}`,
-        description: `**Topic:** ${topic}\n\n${message}`,
-        color: 0x964B00,
-        thumbnail: {
-          url: 'https://i.imgur.com/CQiKstK.jpg',
-        },
-        footer: {
-          text: 'DolphinNotBot - Created by DolphinNotFound',
-          icon_url: 'https://i.imgur.com/CQiKstK.jpg',
-        },
-        timestamp: new Date(),
-      };
+      if (!suggestionValue || !topicValue) {
+        await interaction.followUp('Some inputs are missing. The modal has closed.');
+        return;
+      }
 
-      const guildId = '923718188183728188';
-      const channelId = '1129575069086138460';
+      // Send the suggestion to the specific channel in your guild using process.env
+      const guildId = process.env.GUILD_ID; // Replace with your guild ID
+      const channelId = process.env.SUGGESTION_CHANNEL_ID; // Use your environment variable here
 
       const guild = client.guilds.cache.get(guildId);
       if (!guild) return console.log('Invalid guild ID');
@@ -77,27 +57,38 @@ module.exports = {
       const channel = guild.channels.cache.get(channelId);
       if (!channel) return console.log('Invalid channel ID');
 
-      await interaction.reply('YAYAYAYAYAYAY! EEEEE Your suggestion has been sent to DolphWorld!');
-      await channel.send({ embeds: [embed] });
+      const replyEmbed = {
+        title: `Suggestion by ${interaction.user.username} LOLOLOLOLOLOLOLOLOLOLOL`,
+        color: 0x964B00, // Brown color
+        thumbnail: {
+          url: interaction.user.displayAvatarURL({ dynamic: true }),
+        },
+        fields: [
+          { name: "Topic", value: topicValue }, // If topicValue is not found in the map, default to 'Other'
+          { name: "Suggestion", value: suggestionValue },
+        ],
+        footer: {
+          text: 'DolphinNotBot - Created by DolphinNotFound',
+          icon_url: 'https://i.imgur.com/CQiKstK.jpg',
+        },
+        timestamp: new Date(),
+      };
 
-      cooldowns.set(userId, Date.now());
-      setTimeout(() => cooldowns.delete(userId), cooldownDuration); // Remove cooldown after the specified duration
+      const replyData = { embeds: [replyEmbed] };
+
+      await channel.send(replyData);
+
+      // Send the confirmation message as a private (ephemeral) message
+      await interaction.followUp({
+        content: 'YAYAYAYAYAYAY! EEEEE Your suggestion has been sent to DolphWorld! 🌟',
+        ephemeral: true, // Set ephemeral to true to make the reply visible only to the command user
+      });
+
+      // Automatically close the form by deferring the update of the original interaction response
+      await modalInteraction.deferUpdate();
+
     } catch (error) {
-      console.error(error);
-      await interaction.reply('An error occurred while processing your suggestion.');
+      console.error('Error showing the modal:', error);
     }
   },
 };
-
-function formatDuration(duration) {
-  const hours = Math.floor(duration / 3600000);
-  const minutes = Math.floor((duration % 3600000) / 60000);
-  const seconds = Math.floor((duration % 60000) / 1000);
-
-  const formattedDuration = [];
-  if (hours > 0) formattedDuration.push(`${hours}h`);
-  if (minutes > 0) formattedDuration.push(`${minutes}m`);
-  if (seconds > 0) formattedDuration.push(`${seconds}s`);
-
-  return formattedDuration.join(' ');
-}
