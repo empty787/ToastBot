@@ -52,14 +52,14 @@ module.exports = {
       };
 
       const replyData = {
-        content: 'OH NOOO AI TAKING OVER AHHHH Image Generated:',
+        content: 'Here is the Image Generated!:',
         embeds: [
           {
-            title: 'OH NOOO AI TAKING OVER AHHHH HELPPImage Generated',
+            title: 'Image Generated 🤓🤖🧠🦾👨🏻‍💻',
             description: `**Prompt:**\n${prompt}`,
             color: 0x964b00, // Integer representation of the color
             footer: {
-              text: `Requested by ${interaction.user.username}`,
+              text: `Requested by ${interaction.user.username} (bot coded by DolphinNotFound)`,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
             },
             timestamp: new Date(),
