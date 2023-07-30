@@ -34,8 +34,6 @@ client.on('ready', (c) => {
   }, 10000);
 });
 
-// dolphworld welcome canvas
-
 client.on('guildMemberAdd', async (member) => {
   try {
     await generateWelcomeCard(member); // Generate the welcome card using the function
@@ -46,7 +44,6 @@ client.on('guildMemberAdd', async (member) => {
 
 client.on('messageCreate', async (message) => {
   try {
-    // Use the generateReply function from openaiHandler
     const reply = await generateReply(message, client);
 
     // Handle the reply if needed...
