@@ -28,10 +28,12 @@ function setBotStatus() {
 client.on('ready', (c) => {
   console.log(`✅ ${c.user.tag} is online.`);
 
+  client.user.setPresence({ activities: [{ name: 'with yarn🧶 meow' }], status: 'idle' });
+
   setInterval(() => {
     let random = Math.floor(Math.random() * status.length);
     client.user.setActivity(status[random]);
-  }, 10000);
+  }, 50 * 1000);
 });
 
 client.on('guildMemberAdd', async (member) => {
