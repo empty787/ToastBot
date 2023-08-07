@@ -18,6 +18,18 @@ const status = [
     name: '🐇>🐸>🦆',
     type: ActivityType.Playing,
   },
+  {
+    name: 'to DolphinTunes 🐸',
+    type: ActivityType.Listening,
+  },
+  {
+    name: 'anteaters > 🐜 hha',
+    type: ActivityType.Competing,
+  },
+  {
+    name: '🐦 + 🐊 + 🕷️ = 🦖',
+    type: ActivityType.Custom,
+  },
 ];
 
 module.exports = status;
