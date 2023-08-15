@@ -29,7 +29,7 @@ function setBotStatus() {
 client.on('ready', (c) => {
   console.log(`✅ ${c.user.tag} is online.`);
 
-  client.user.setPresence({ activities: [{ name: 'with yarn🧶 meow' }], status: `idle` });
+  client.user.setPresence({ activities: [{ name: 'with yarn🧶 meowww' }], status: `idle` });
 
   setInterval(() => {
     let random = Math.floor(Math.random() * status.length);
