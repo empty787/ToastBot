@@ -44,7 +44,7 @@ module.exports = {
         components: buttons,
       };
 
-      await interaction.editReply({
+      const reply = await interaction.editReply({
         content: 'Buttons',
         components: [buttonRow],
       });
@@ -76,10 +76,25 @@ module.exports = {
           const userId = buttonInteraction.user.id;
           await giveXP(userId, xpAmount);
           await interaction.channel.send(`Gave <@${userId}> ${xpAmount} XP.`);
-        } else {
+
+          // Disable all buttons
+          for (const button of buttonRow.components) {
+            button.disabled = true;
+          }
+          await reply.edit({ components: [buttonRow] });
+
           gameOver = true;
+        } else {
           try {
             await buttonInteraction.update({ content: 'Game over. You clicked the wrong button.' });
+
+            // Disable all buttons
+            for (const button of buttonRow.components) {
+              button.disabled = true;
+            }
+            await reply.edit({ components: [buttonRow] });
+
+            gameOver = true;
           } catch (error) {
             if (error instanceof DiscordAPIError && error.code === 10062) {
               // Interaction is no longer valid, ignore the error

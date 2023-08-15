@@ -71,7 +71,7 @@ module.exports = {
       };
 
       // Send the initial message with the select menu
-      await interaction.reply({
+      const initialMessage = await interaction.reply({
         content: 'Please select an option to view:',
         components: [
           {
@@ -86,7 +86,7 @@ module.exports = {
 
       const collector = interaction.channel.createMessageComponentCollector({
         filter,
-        time: 60000,
+        time: 20000, // 20 seconds
       });
 
       collector.on('collect', async (buttonInteraction) => {
@@ -120,8 +120,17 @@ module.exports = {
         await buttonInteraction.update({ embeds: [embed] });
       });
 
-      collector.on('end', () => {
-        interaction.followUp('The menu has closed.');
+      collector.on('end', async () => {
+        // Disable the entire select menu
+        selectMenuComponent.disabled = true;
+        await initialMessage.edit({
+          components: [
+            {
+              type: 1,
+              components: [selectMenuComponent],
+            },
+          ],
+        });
       });
     } catch (error) {
       console.error('Error fetching user profile:', error);

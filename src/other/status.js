@@ -19,6 +19,10 @@ const status = [
     type: ActivityType.Playing,
   },
   {
+    name: 'give me cookie pwease?',
+    type: ActivityType.Playing,
+  },
+  {
     name: 'to DolphinTunes 🐸',
     type: ActivityType.Listening,
   },

@@ -11,20 +11,20 @@ module.exports = {
         type: 1,
         components: [
           {
-            type: 2, 
-            style: 1, 
+            type: 2,
+            style: 1,
             label: 'Primary',
             customId: 'Primary',
           },
           {
-            type: 2, 
-            style: 2, 
+            type: 2,
+            style: 2,
             label: 'Secondary',
             customId: 'Secondary',
           },
           {
-            type: 2, 
-            style: 3, 
+            type: 2,
+            style: 3,
             label: 'Success',
             customId: 'Success',
           },
@@ -43,7 +43,7 @@ module.exports = {
         ],
       };
 
-      await interaction.editReply({
+      const reply = await interaction.editReply({
         content: 'Buttons',
         components: [buttonRow],
       });
@@ -79,6 +79,28 @@ module.exports = {
             console.error('Error running button command:', error);
             await interaction.editReply('An error occurred while running the command.');
           }
+        }
+      });
+
+      collector.on('end', async (collected, reason) => {
+        try {
+          // Set all buttons to disabled
+          for (const button of buttonRow.components) {
+            button.disabled = true;
+          }
+
+          // Update the reply with disabled buttons
+          await reply.edit({ components: [buttonRow] });
+
+          setTimeout(async () => {
+            // Edit the reply to indicate the command is disabled
+            await reply.edit({
+              content: 'This command is now disabled HEHEHEHEHEHEHE.',
+              components: [buttonRow],
+            });
+          }, 3000); // Delay in milliseconds before disabling the command
+        } catch (error) {
+          console.error(error);
         }
       });
     } catch (error) {

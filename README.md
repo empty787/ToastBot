@@ -25,3 +25,8 @@ deleted: true, // this is where the deleted code should go!
 // put your code below
 
 the models or schemas folder is a super important folder! i recommend you dont delete it!
+
+`notes`
+
+giveAdvancement.js - This script will create achievement files, handle data, and events:
+achievements.js - This script will fetch data from the database and put the data in the embed:
