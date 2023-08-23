@@ -1,0 +1,10 @@
+module.exports = {
+    name: 'prefixd',
+    description: 'idk',
+  
+    execute(message, args) {
+        const currentTime = new Date().toLocaleTimeString();
+      message.reply(`XDXDXDXD`);
+    },
+  };
+  

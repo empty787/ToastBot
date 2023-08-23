@@ -25,7 +25,7 @@ const responses = [
 
 module.exports = {
   name: '8ball',
-  description: 'Ask the Magic 8-Ball a question!',
+  description: 'Ask the Magic 8-Ball a question fr fr',
   callback: async (client, interaction) => {
     try {
       const modal = new ModalBuilder({

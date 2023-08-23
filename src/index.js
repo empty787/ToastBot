@@ -1,15 +1,22 @@
 require('dotenv').config();
 const { Client, IntentsBitField, ActivityType, WebhookClient } = require('discord.js');
-const messageCommandHandler = require('./other/messageCmdHandler');
+const messageCommandHandler = require('./other/commands');
 const { logJoin, logLeave } = require('./other/logger');
 const { generateWelcomeCard } = require('./other/welcome');
 const status = require('./other/status');
-const { handleCommands } = require('./other/messageCmdHandler');
+// const { handleCommands } = require('./other/commands');
 const { handleVideoIdea } = require('./other/videoIdeas');
 const { generateReply } = require('./other/chatbot');
-const { createCanvas, loadImage } = require('canvas');
+// const { createCanvas, loadImage } = require('canvas');
 const mongoose = require('mongoose');
+// const express = require('express');
+// const app = require('./other/backend/api');
+const { red, blue, greenBright, cyan, yellow } = require("chalk");
+const { loadCommands, handlePrefixCommands } = require('./handlers/commandHandler');
+const { prefix } = require("../config.json")
 const eventHandler = require('./handlers/eventHandler');
+
+// const PORT = process.env.PORT || 8080;
 
 const client = new Client({
   intents: [
@@ -27,9 +34,27 @@ function setBotStatus() {
 }
 
 client.on('ready', (c) => {
-  console.log(`✅ ${c.user.tag} is online.`);
+  // console.clear();
+  process.stdout.write('\x1Bc'); // Clears the terminal
+    console.log(blue(`
+    █▀▄ █▀█ █   █▀█ █▄█ ▀█▀ █▄█ █▄█
+    █▄▀ █▄█ █▄▄ █▀▀ █ █ ▄█▄ █ ▀█ ▀█ 
+    ▒▓▒ ░░░▒▓ ░▒▓░░░ ▒░ ░▒ ▒▓▒ ▒░
+    ░▒░   ░░░ ░ ▒░ ░ ░  ░░ ░▒  ░ 
+    ░░       ░  ░   ░    ░  ░  ░
+    Bot: ${c.user.tag}                                                 
+    Prefix: ${prefix}                                     
+╔════════════════════════════════════════════════════════════╗
+║             Project Information (Coded by Dolphin#6086)    ║
+╠════════════════════════════════════════════════════════════╣
+║ Name:   Discord ultimate v14 bot                           ║
+║ Author:   Dolphin#6086                                     ║
+║ Version:  1.0.0                                            ║
+╚════════════════════════════════════════════════════════════╝
+    `))
+  console.log(`✅ ${c.user.tag} woke up from a good night's sleep!💤😴🛌`);
 
-  client.user.setPresence({ activities: [{ name: 'with yarn🧶 meowww' }], status: `idle` });
+  client.user.setPresence({ activities: [{ name: `😺in ${client.guilds.cache.size} servers` }], status: `idle` });
 
   setInterval(() => {
     let random = Math.floor(Math.random() * status.length);
@@ -56,9 +81,9 @@ client.on('messageCreate', async (message) => {
 });
 
 // Message commands
-client.on('messageCreate', (message) => {
-handleCommands(message, client);
-});
+// client.on('messageCreate', (message) => {
+// handleCommands(message, client);
+// });
 
 // handle video ideas
 client.on('messageCreate', (message) => {
@@ -75,17 +100,34 @@ client.on('guildDelete', async (guild) => {
   logLeave(client, guild);
 });
 
-// Message Command Handler
-client.on('message', (message) => {
-  // Call the handleCommands function from messageCommandHandler
-  messageCommandHandler.handleCommands(message, client);
+// // Message Command Handler
+// client.on('message', (message) => {
+//   // Call the handleCommands function from messageCommandHandler
+//   messageCommandHandler.handleCommands(message, client);
+// });
+
+// Load commands from the 'commands' directory
+loadCommands('commands');
+
+// Event handler for when a message is received
+client.on('messageCreate', (message) => {
+  // Call the handlePrefixCommands function from the command handler
+  handlePrefixCommands(client, message);
 });
+
+// Start the Express.js server
+// app.listen(PORT, () => {
+//  console.log(`Server is running on port ${PORT}`);
+// });
 
 (async () => {
   try {
     mongoose.set('strictQuery', false);
     await mongoose.connect(process.env.MONGODB_URL, { keepAlive: true });
-    console.log('Connected to DB.');
+    
+    setTimeout(() => {
+      console.log('Connected to DB.');
+    }, 1000);
 
     eventHandler(client);
 
