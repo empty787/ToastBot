@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Discord = require("discord.js");
 const { Client, IntentsBitField, ActivityType, WebhookClient } = require('discord.js');
 const messageCommandHandler = require('./other/commands');
 const { logJoin, logLeave } = require('./other/logger');
@@ -15,6 +16,8 @@ const { red, blue, greenBright, cyan, yellow } = require("chalk");
 const { loadCommands, handlePrefixCommands } = require('./handlers/commandHandler');
 const { prefix } = require("../config.json")
 const eventHandler = require('./handlers/eventHandler');
+
+const { log } = require('./other/consolelogging');
 
 // const PORT = process.env.PORT || 8080;
 
@@ -36,14 +39,15 @@ function setBotStatus() {
 client.on('ready', (c) => {
   // console.clear();
   process.stdout.write('\x1Bc'); // Clears the terminal
+
     console.log(blue(`
-    █▀▄ █▀█ █   █▀█ █▄█ ▀█▀ █▄█ █▄█
-    █▄▀ █▄█ █▄▄ █▀▀ █ █ ▄█▄ █ ▀█ ▀█ 
-    ▒▓▒ ░░░▒▓ ░▒▓░░░ ▒░ ░▒ ▒▓▒ ▒░
-    ░▒░   ░░░ ░ ▒░ ░ ░  ░░ ░▒  ░ 
-    ░░       ░  ░   ░    ░  ░  ░
+██████╗░░█████╗░██╗░░░░░██████╗░██╗░░██╗██╗███╗░░██╗
+██╔══██╗██╔══██╗██║░░░░░██╔══██╗██║░░██║██║████╗░██║
+██║░░██║██║░░██║██║░░░░░██████╔╝███████║██║██╔██╗██║
+██║░░██║██║░░██║██║░░░░░██╔═══╝░██╔══██║██║██║╚████║
+██████╔╝╚█████╔╝███████╗██║░░░░░██║░░██║██║██║░╚███║
     Bot: ${c.user.tag}                                                 
-    Prefix: ${prefix}                                     
+    Prefix: ${prefix}                                   
 ╔════════════════════════════════════════════════════════════╗
 ║             Project Information (Coded by Dolphin#6086)    ║
 ╠════════════════════════════════════════════════════════════╣
