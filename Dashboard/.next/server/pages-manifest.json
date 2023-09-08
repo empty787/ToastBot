@@ -1,0 +1,13 @@
+{
+  "/_app": "pages/_app.js",
+  "/auth/discord": "pages/auth/discord.html",
+  "/dashboard/@me": "pages/dashboard/@me.html",
+  "/dashboard/guilds/[guild]": "pages/dashboard/guilds/[guild].html",
+  "/dashboard/guilds/[guild]/reasons": "pages/dashboard/guilds/[guild]/reasons.html",
+  "/": "pages/index.html",
+  "/dashboard/guilds/[guild]/moderation": "pages/dashboard/guilds/[guild]/moderation.html",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/login": "pages/login.js",
+  "/404": "pages/404.html"
+}
