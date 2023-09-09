@@ -1,3 +1,0 @@
-@function themed($title, $tonalit: 100) {
-    @return var(--#{$title}-#{$tonalit});
-}

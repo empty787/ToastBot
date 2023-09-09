@@ -74,15 +74,15 @@ client.on('guildMemberAdd', async (member) => {
   }
 });
 
-client.on('messageCreate', async (message) => {
-  try {
-    const reply = await generateReply(message, client);
+// client.on('messageCreate', async (message) => {
+//   try {
+//     const reply = await generateReply(message, client);
 
-    // Handle the reply if needed...
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-});
+//     // Handle the reply if needed...
+//   } catch (error) {
+//     console.log(`Error: ${error}`);
+//   }
+// });
 
 // Message commands
 // client.on('messageCreate', (message) => {
