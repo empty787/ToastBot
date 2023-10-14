@@ -11,7 +11,7 @@ module.exports = {
       { name: 'Super Sword', price: 500, tag: 'Weapons' },
       { name: 'Magic Potion', price: 200, tag: 'Consumables' },
       { name: 'Legendary Shield', price: 1000, tag: 'Armor' },
-      { name: 'DolphinNotFound Plushie', price: 1000, tag: 'Merchandise' },
+      { name: 'Coffee Plushie', price: 1000, tag: 'Merchandise' },
       { name: 'Tesla', price: 1000, tag: 'Vehicles' },
       { name: 'Iphone 14 pro max', price: 9000, tag: 'Electronics' },
       { name: 'twitter', price: 1000, tag: 'Social Media' },
@@ -48,7 +48,7 @@ module.exports = {
       });
 
       const shopEmbed = {
-        title: 'Welcome to the Dolphins Shop!',
+        title: 'Welcome to the Coffees Shop!',
         description: 'Here are the items available for purchase:',
         color: 0x964B00,
         fields: [],
@@ -106,7 +106,7 @@ module.exports = {
           : shopItems.filter((item) => selectedTags.includes(item.tag));
 
         const filteredEmbed = {
-          title: 'Welcome to the Dolphins Shop!',
+          title: 'Welcome to the Coffees Shop!',
           description: `Here are the items available for purchase with selected tags: ${selectedTags.join(', ')}`,
           color: 0x964B00,
           fields: [],

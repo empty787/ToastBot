@@ -2,7 +2,7 @@ const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = req
 
 module.exports = {
   name: 'suggestion',
-  description: "Your suggestion will be sent to DolphWorld (DolphinNotBot HQ)",
+  description: "Your suggestion will be sent to DolphWorld (CoffeeBot HQ)",
 
   callback: async (client, interaction) => {
     try {
@@ -68,7 +68,7 @@ module.exports = {
           { name: "Suggestion", value: suggestionValue },
         ],
         footer: {
-          text: 'DolphinNotBot - Created by DolphinNotFound',
+          text: 'CoffeeBot - Created by Coffee',
           icon_url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         timestamp: new Date(),

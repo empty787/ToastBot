@@ -4,12 +4,12 @@ const status = [
   {
     name: '🌐 </> 💻',
     type: ActivityType.Streaming,
-    url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=DolphinNotFound',
+    url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=Coffee',
   },
   {
-    name: 'Bot coded my Dolphin ;)💻',
+    name: 'Bot coded my Coffee ;)💻',
     type: ActivityType.Streaming,
-    url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=DolphinNotFound',
+    url: 'https://www.youtube.com/watch?v=opwWUaUadH0&ab_channel=Coffee',
   },
   {
     name: '🤖<🐙 >:)',
@@ -32,7 +32,7 @@ const status = [
     type: ActivityType.Playing,
   },
   {
-    name: 'to DolphinTunes 🐸',
+    name: 'to CoffeeTunes 🐸',
     type: ActivityType.Listening,
   },
   {

@@ -6,7 +6,7 @@ const shopItems = [
   { name: 'Super Sword', price: 500 },
   { name: 'Magic Potion', price: 200 },
   { name: 'Legendary Shield', price: 1000 },
-  { name: 'DolphinNotFound Plushie', price: 1000 },
+  { name: 'Coffee Plushie', price: 1000 },
   { name: 'Tesla', price: 1000 },
   { name: 'Iphone 14 pro max', price: 9000 },
   { name: 'twitter', price: 1000 },
@@ -29,7 +29,7 @@ const shopItems = [
 
 module.exports = {
   name: 'buy',
-  description: 'Allows the user to buy an item from the shop using their daily DolphCoins and DolphinBucks!',
+  description: 'Allows the user to buy an item from the shop using their daily DolphCoins and CoffeeBucks!',
   options: [
     {
       name: 'item',
@@ -114,7 +114,7 @@ module.exports = {
       if (user.balance < selectedItem.price) {
         const embed = {
           title: 'Insufficient Balance',
-          description: 'Insufficient DolphCoins and DolphinBucks to make the purchase.',
+          description: 'Insufficient DolphCoins and CoffeeBucks to make the purchase.',
           color: 0xFF0000, // Red color
         };
 

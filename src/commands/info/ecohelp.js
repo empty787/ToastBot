@@ -4,7 +4,7 @@ module.exports = {
   
     callback: (client, interaction) => {
       const embed = {
-        title: 'Economy Commands Help For DolphinNotBot',
+        title: 'Economy Commands Help For CoffeeBot',
         description: 'Here are the available economy commands:',
         fields: [
           {
@@ -33,11 +33,11 @@ module.exports = {
           },
           {
             name: '/daily',
-            value: 'Get your Dolphinbucks and DolphinCoins each day!',
+            value: 'Get your Coffeebucks and CoffeeCoins each day!',
           },
           {
             name: '/deposit',
-            value: 'deposits your Dolphinbucks to the bank',
+            value: 'deposits your Coffeebucks to the bank',
           },
           {
             name: '/gamble',
@@ -45,7 +45,7 @@ module.exports = {
           },
           {
             name: '/invest',
-            value: 'invest your DolphinBucks!',
+            value: 'invest your CoffeeBucks!',
           },
           {
             name: '/rob',
@@ -53,7 +53,7 @@ module.exports = {
           },
           {
             name: '/scam',
-            value: 'This command is just a test! This is not a scam command to steal your DolphinBucks!',
+            value: 'This command is just a test! This is not a scam command to steal your CoffeeBucks!',
           },
           {
             name: '/trade',
@@ -61,15 +61,15 @@ module.exports = {
           },
           {
             name: '/work',
-            value: 'Use this slash command for more DolphinBucks!',
+            value: 'Use this slash command for more CoffeeBucks!',
           },
           {
             name: '/buy',
-            value: 'Want to spend your DolphinBucks on something cool? Do /buy to get something!',
+            value: 'Want to spend your CoffeeBucks on something cool? Do /buy to get something!',
           },
           {
             name: '/shop',
-            value: 'Shows all availible products in stock at DolphinShop!',
+            value: 'Shows all availible products in stock at CoffeeShop!',
           },
           {
             name: '/inventory',
@@ -77,11 +77,11 @@ module.exports = {
           },
           {
             name: '/restaurant',
-            value: 'Shows all availible products in stock at `Dolphins Goofy Ahh Restarant!`',
+            value: 'Shows all availible products in stock at `Coffees Goofy Ahh Restarant!`',
           },
           {
             name: '/order',
-            value: 'Are you starving rn? well, use this command to get food at `Dolphins Goofy Ahh Restarant!`',
+            value: 'Are you starving rn? well, use this command to get food at `Coffees Goofy Ahh Restarant!`',
           },
         ],
         color: 0x964B00, // You can customize the color as desired

@@ -41,12 +41,12 @@ module.exports = {
         color: 0xFF5733,
         title: 'Restaurant Menu',
         description: 'Here is our delicious menu with prices:',
-        fields: menu.map(item => ({ name: item.name, value: `${item.price} DolphinBucks`, inline: true })),
-        footer: { text: 'Dolphins goofy ahh restarant' },
+        fields: menu.map(item => ({ name: item.name, value: `${item.price} CoffeeBucks`, inline: true })),
+        footer: { text: 'Coffees goofy ahh restarant' },
       };
 
       if (user.money < 0) {
-        interaction.editReply('You do not have enough DolphinBucks to order from the restaurant.');
+        interaction.editReply('You do not have enough CoffeeBucks to order from the restaurant.');
         return;
       }
 

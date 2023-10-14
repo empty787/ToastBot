@@ -49,10 +49,10 @@ client.on('ready', (c) => {
     Bot: ${c.user.tag}                                                 
     Prefix: ${prefix}                                   
 ╔════════════════════════════════════════════════════════════╗
-║             Project Information (Coded by Dolphin#6086)    ║
+║             Project Information (Coded by Coffee#6086)    ║
 ╠════════════════════════════════════════════════════════════╣
 ║ Name:   Discord ultimate v14 bot                           ║
-║ Author:   Dolphin#6086                                     ║
+║ Author:   Coffee#6086                                     ║
 ║ Version:  1.0.0                                            ║
 ╚════════════════════════════════════════════════════════════╝
     `))

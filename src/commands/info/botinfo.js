@@ -2,16 +2,16 @@ const { Client, Interaction } = require('discord.js');
 
 module.exports = {
   name: 'botinfo',
-  description: 'Shows info about DolphinNotBot',
+  description: 'Shows info about CoffeeBot',
 
   callback: (client, interaction) => {
     const embed = {
-      title: 'DolphinNotBot Info',
-      description: 'A friendly and goofy ahh bot created by DolphinNotFound',
+      title: 'CoffeeBot Info',
+      description: 'A friendly and goofy ahh bot created by Coffee',
       fields: [
         {
           name: 'Creator',
-          value: 'DolphinNotFound',
+          value: 'Coffee',
           inline: true,
         },
         {
@@ -40,7 +40,7 @@ module.exports = {
         url: 'https://i.imgur.com/CQiKstK.jpg',
       },
       footer: {
-        text: 'DolphinNotBot - Created by DolphinNotFound',
+        text: 'CoffeeBot - Created by Coffee',
         icon_url: 'https://i.imgur.com/CQiKstK.jpg',
       },
       timestamp: new Date(),

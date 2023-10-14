@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# List of unused dependencies
+UNUSED_DEPENDENCIES=(
+  "@discordjs/rest"
+  "@discordjs/voice"
+  "@napi-rs/canvas"
+  "@nestjs/common"
+  "@prisma/client"
+  "@sentry/node"
+  "axios"
+  "babel-eslint"
+  "bufferutil"
+  "cors"
+  "discord-giveaways"
+  "discord-modals"
+  "discord-player"
+  "ejs"
+  "erlpack"
+  "eslint"
+  "express"
+  "express-session"
+  "fs"
+  "google-it"
+  "inquirer"
+  "install"
+  "jsoning"
+  "mathjs"
+  "mongodb"
+  "morgan"
+  "node-fetch"
+  "npm"
+  "omega_num.js"
+  "ora"
+  "passport"
+  "passport-discord"
+  "path"
+  "pg"
+  "prisma"
+  "quickmongo"
+  "redis-modules-sdk"
+  "snake-case"
+  "string-similarity"
+  "utf-8-validate"
+  "ytdl-core"
+  "ytdl-core-discord"
+  "zlib-sync"
+)
+
+# Uninstall each unused dependency
+for package in "${UNUSED_DEPENDENCIES[@]}"; do
+  npm uninstall "$package"
+done
+
+echo "Unused dependencies uninstalled."

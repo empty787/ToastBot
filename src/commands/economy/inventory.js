@@ -31,7 +31,7 @@ module.exports = {
           url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         footer: {
-          text: 'DolphinNotBot - Created by DolphinNotFound',
+          text: 'CoffeeBot - Created by Coffee',
           icon_url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         timestamp: new Date(),
