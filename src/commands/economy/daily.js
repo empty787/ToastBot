@@ -5,7 +5,7 @@ const dailyAmount = 1000;
 
 module.exports = {
   name: 'daily',
-  description: 'Collect your daily Dolphcoins and CoffeeBucks!',
+  description: 'Collect your daily Dolphcoins and ToastBucks!',
   /**
    *
    * @param {Client} client
@@ -36,7 +36,7 @@ module.exports = {
 
         if (lastDailyDate === currentDate) {
           interaction.editReply(
-            'You have already collected your dailies aka CoffeeBucks<:CoffeeBucks:1127314182648373291> today. Come back tomorrow! CYA :)'
+            'You have already collected your dailies aka ToastBucks<:ToastBucks:1127314182648373291> today. Come back tomorrow! CYA :)'
           );
           return;
         }

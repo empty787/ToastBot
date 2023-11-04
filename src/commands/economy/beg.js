@@ -35,7 +35,7 @@ module.exports = {
       userLevel.xp = newBalance;
       await userLevel.save();
 
-      interaction.editReply(`You begged and earned ${coinsEarned} CoffeeBucks. Your new balance is ${newBalance} DolphCoins<:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:CoffeeBucks:1127314182648373291>.`);
+      interaction.editReply(`You begged and earned ${coinsEarned} ToastBucks. Your new balance is ${newBalance} DolphCoins<:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:ToastBucks:1127314182648373291>.`);
     } catch (error) {
       console.error('Error running beg command:', error);
       interaction.editReply('An error occurred while running the command.');

@@ -40,7 +40,7 @@ module.exports = {
       userLevel.xp += earnings;
       await userLevel.save();
 
-      interaction.editReply(`You invested ${amount} CoffeeBucks and earned ${earnings} CoffeeBucks as return. <:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:CoffeeBucks:1127314182648373291>`);
+      interaction.editReply(`You invested ${amount} ToastBucks and earned ${earnings} ToastBucks as return. <:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:ToastBucks:1127314182648373291>`);
     } catch (error) {
       console.error('Error running invest command:', error);
       interaction.editReply('An error occurred while running the command.');

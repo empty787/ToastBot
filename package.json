@@ -1,5 +1,5 @@
 {
-  "name": "CoffeeBot",
+  "name": "ToastBot",
   "version": "1.0.0",
   "description": "bot",
   "main": "src/index.js",
@@ -8,7 +8,7 @@
     "start": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "Coffee",
+  "author": "Toast",
   "license": "ISC",
   "dependencies": {
     "canvacord": "^5.4.10",

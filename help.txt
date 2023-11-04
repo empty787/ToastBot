@@ -1,0 +1,5 @@
+CREATE ROLE my_postgres_user WITH LOGIN PASSWORD 'my_password';
+CREATE DATABASE my_database;
+GRANT ALL PRIVILEGES ON DATABASE my_database TO my_postgres_user;
+COMMIT;
+\q

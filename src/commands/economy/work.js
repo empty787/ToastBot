@@ -55,7 +55,7 @@ module.exports = {
       user.lastWorkedAt = currentTime;
       await user.save();
 
-      interaction.editReply(`You worked as ${selectedJob.job} and earned ${selectedJob.reward} CoffeeBucks. Your new balance is ${newBalance} CoffeeBucks. <:Coffee:978832169474605086>`);
+      interaction.editReply(`You worked as ${selectedJob.job} and earned ${selectedJob.reward} ToastBucks. Your new balance is ${newBalance} ToastBucks. <:Toast:978832169474605086>`);
     } catch (error) {
       console.error('Error running work command:', error);
       interaction.editReply('An error occurred while running the command.');

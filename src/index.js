@@ -49,16 +49,16 @@ client.on('ready', (c) => {
     Bot: ${c.user.tag}                                                 
     Prefix: ${prefix}                                   
 ╔════════════════════════════════════════════════════════════╗
-║             Project Information (Coded by Coffee#6086)    ║
+║             Project Information (Coded by Toast#6086)    ║
 ╠════════════════════════════════════════════════════════════╣
 ║ Name:   Discord ultimate v14 bot                           ║
-║ Author:   Coffee#6086                                     ║
+║ Author:   Toast#6086                                     ║
 ║ Version:  1.0.0                                            ║
 ╚════════════════════════════════════════════════════════════╝
     `))
-  console.log(`✅ ${c.user.tag} woke up from a good night's sleep!💤😴🛌`);
+  console.log(`✅ ${c.user.tag} just woked up!`);
 
-  client.user.setPresence({ activities: [{ name: `😺in ${client.guilds.cache.size} servers` }], status: `idle` });
+  client.user.setPresence({ activities: [{ name: `in ${client.guilds.cache.size} servers` }], status: `idle` });
 
   setInterval(() => {
     let random = Math.floor(Math.random() * status.length);

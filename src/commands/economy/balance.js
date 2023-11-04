@@ -55,7 +55,7 @@ module.exports = {
           { name: '`- Progress`', value: generateProgressBar(user.balance), inline: true },
         ],
         footer: {
-          text: 'CoffeeBot - Created by Coffee',
+          text: 'ToastBot - Created by Toast',
           icon_url: 'https://i.imgur.com/CQiKstK.jpg', // Bot's avatar or any other icon
         },
         timestamp: new Date(),

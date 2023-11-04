@@ -20,7 +20,7 @@
 
 //     if (message.mentions.users.has(client.user.id)) {
 //       const content = message.content.replace(`<@!${client.user.id}>`, '').trim();
-//       message.reply("Hey! I am Coffee's bot :) How can I help you today?");
+//       message.reply("Hey! I am Toast's bot :) How can I help you today?");
 //     }
 
 //     if (message.content.startsWith(prefix + "lenny")) {

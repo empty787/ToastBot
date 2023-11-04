@@ -4,7 +4,7 @@ module.exports = {
   
     callback: (client, interaction) => {
       const embed = {
-        title: 'Economy Commands Help For CoffeeBot',
+        title: 'Economy Commands Help For ToastBot',
         description: 'Here are the available economy commands:',
         fields: [
           {
@@ -33,11 +33,11 @@ module.exports = {
           },
           {
             name: '/daily',
-            value: 'Get your Coffeebucks and CoffeeCoins each day!',
+            value: 'Get your Toastbucks and ToastCoins each day!',
           },
           {
             name: '/deposit',
-            value: 'deposits your Coffeebucks to the bank',
+            value: 'deposits your Toastbucks to the bank',
           },
           {
             name: '/gamble',
@@ -45,7 +45,7 @@ module.exports = {
           },
           {
             name: '/invest',
-            value: 'invest your CoffeeBucks!',
+            value: 'invest your ToastBucks!',
           },
           {
             name: '/rob',
@@ -53,7 +53,7 @@ module.exports = {
           },
           {
             name: '/scam',
-            value: 'This command is just a test! This is not a scam command to steal your CoffeeBucks!',
+            value: 'This command is just a test! This is not a scam command to steal your ToastBucks!',
           },
           {
             name: '/trade',
@@ -61,15 +61,15 @@ module.exports = {
           },
           {
             name: '/work',
-            value: 'Use this slash command for more CoffeeBucks!',
+            value: 'Use this slash command for more ToastBucks!',
           },
           {
             name: '/buy',
-            value: 'Want to spend your CoffeeBucks on something cool? Do /buy to get something!',
+            value: 'Want to spend your ToastBucks on something cool? Do /buy to get something!',
           },
           {
             name: '/shop',
-            value: 'Shows all availible products in stock at CoffeeShop!',
+            value: 'Shows all availible products in stock at ToastShop!',
           },
           {
             name: '/inventory',
@@ -77,11 +77,11 @@ module.exports = {
           },
           {
             name: '/restaurant',
-            value: 'Shows all availible products in stock at `Coffees Goofy Ahh Restarant!`',
+            value: 'Shows all availible products in stock at `Toasts Goofy Ahh Restarant!`',
           },
           {
             name: '/order',
-            value: 'Are you starving rn? well, use this command to get food at `Coffees Goofy Ahh Restarant!`',
+            value: 'Are you starving rn? well, use this command to get food at `Toasts Goofy Ahh Restarant!`',
           },
         ],
         color: 0x964B00, // You can customize the color as desired

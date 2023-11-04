@@ -10,7 +10,7 @@ const prompts = [
   'A',
   'bruh',
   'among us',
-  'Sub to Coffee for 10000000 CoffeeBucks and 40000000 DolphCoins!!!',
+  'Sub to Toast for 10000000 ToastBucks and 40000000 DolphCoins!!!',
 ];
 
 module.exports = {

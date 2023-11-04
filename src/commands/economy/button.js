@@ -38,7 +38,7 @@ module.exports = {
             type: 2,
             style: 5,
             label: 'Link >:) lol',
-            url: 'https://github.com/Coffee',
+            url: 'https://github.com/Toast',
           },
         ],
       };

@@ -1,6 +1,7 @@
 const { createCanvas, loadImage } = require('canvas');
 const Level = require('../../../models/Level'); // Import your Level model
 const calculateLevelXp = require('../../../utils/calculateLevelXp'); // Import your XP calculation function
+const path = require('path');
 
 module.exports = {
   name: 'rank',
@@ -21,7 +22,8 @@ module.exports = {
     const ctx = canvas.getContext('2d');
 
     // Load the background image for the rank card (replace with your desired background image)
-    const backgroundImage = await loadImage('https://i.imgur.com/Rx35qid.gif');
+    const backgroundImagePath = path.join(__dirname, '../../../../images/toast.png'); // Adjust the path as needed
+    const backgroundImage = await loadImage(backgroundImagePath);
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     // Draw the brown outline around the rank card

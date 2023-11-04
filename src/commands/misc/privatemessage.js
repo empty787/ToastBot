@@ -3,7 +3,7 @@ module.exports = {
     description: 'Sends a private message',
   
     callback: (client, interaction) => {
-      const messageContent = 'Sub to Coffee: https://www.youtube.com/channel/UCGb0e9ewlGy6wCKFD6KZ2Eg'; // Message content
+      const messageContent = 'Sub to Toast: https://www.youtube.com/channel/UCGb0e9ewlGy6wCKFD6KZ2Eg'; // Message content
   
       // Reply in the public channel with a private message notification
       interaction.reply({

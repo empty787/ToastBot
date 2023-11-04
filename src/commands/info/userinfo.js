@@ -52,7 +52,7 @@ module.exports = {
         },
       ],
       footer: {
-        text: 'CoffeeBot - Created by Coffee',
+        text: 'ToastBot - Created by Toast',
         icon_url: 'https://i.imgur.com/CQiKstK.jpg',
       },
       timestamp: new Date(),
