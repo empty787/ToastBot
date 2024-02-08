@@ -17,7 +17,7 @@
 
 //     // Check for specific keywords and respond directly without using OpenAI API
 //     if (message.content.toLowerCase() === 'hi' || message.content.toLowerCase() === 'hello') {
-//       message.reply("Hey! I am ToastBot!");
+//       message.reply("Hey! I am void!");
 //       return;
 //     }
 

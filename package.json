@@ -1,5 +1,5 @@
 {
-  "name": "ToastBot",
+  "name": "ragingtoast813",
   "version": "1.0.0",
   "description": "bot",
   "main": "src/index.js",
@@ -8,7 +8,7 @@
     "start": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "Toast",
+  "author": "ragingtoast813",
   "license": "ISC",
   "dependencies": {
     "canvacord": "^5.4.10",

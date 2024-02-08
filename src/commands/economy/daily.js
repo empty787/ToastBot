@@ -5,7 +5,7 @@ const dailyAmount = 1000;
 
 module.exports = {
   name: 'daily',
-  description: 'Collect your daily Dolphcoins and ToastBucks!',
+  description: 'Collect your daily ragingtoast813coins and ragingtoast813Bucks!',
   /**
    *
    * @param {Client} client
@@ -36,7 +36,7 @@ module.exports = {
 
         if (lastDailyDate === currentDate) {
           interaction.editReply(
-            'You have already collected your dailies aka ToastBucks<:ToastBucks:1127314182648373291> today. Come back tomorrow! CYA :)'
+            'You have already collected your dailies aka ragingtoast813Bucks<:ragingtoast813Bucks:1127314182648373291> today. Come back tomorrow! CYA :)'
           );
           return;
         }
@@ -53,7 +53,7 @@ module.exports = {
       await user.save();
 
       interaction.editReply(
-        `${dailyAmount} was added to your balance. Your new balance is ${user.balance} More DolphCoins will be ready for you tommarow!`
+        `${dailyAmount} was added to your balance. Your new balance is ${user.balance} More ragingtoast813Coins will be ready for you tommarow!`
       );
     } catch (error) {
       console.log(`Error with /daily: ${error}`);

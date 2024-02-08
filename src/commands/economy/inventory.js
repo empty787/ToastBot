@@ -22,7 +22,7 @@ module.exports = {
         description: inventoryList,
         fields: [
           {
-            name: 'Hey! thanks for shopping at DolphStore!!!',
+            name: 'Hey! thanks for shopping at ragingtoast813Store!!!',
             value: 'EEEEEEEEĘEË',
           },
         ],
@@ -31,7 +31,7 @@ module.exports = {
           url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         footer: {
-          text: 'ToastBot - Created by Toast',
+          text: 'void - Created by ragingtoast813',
           icon_url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         timestamp: new Date(),

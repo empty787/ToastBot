@@ -10,7 +10,7 @@ const prompts = [
   'A',
   'bruh',
   'among us',
-  'Sub to Toast for 10000000 ToastBucks and 40000000 DolphCoins!!!',
+  'Sub to ragingtoast813 for 10000000 ragingtoast813Bucks and 40000000 ragingtoast813Coins!!!',
 ];
 
 module.exports = {

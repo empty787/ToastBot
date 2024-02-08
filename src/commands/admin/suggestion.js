@@ -2,7 +2,7 @@ const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = req
 
 module.exports = {
   name: 'suggestion',
-  description: "Your suggestion will be sent to DolphWorld (ToastBot HQ)",
+  description: "Your suggestion will be sent to ragingragingtoast813813's discord (void HQ)",
 
   callback: async (client, interaction) => {
     try {
@@ -68,7 +68,7 @@ module.exports = {
           { name: "Suggestion", value: suggestionValue },
         ],
         footer: {
-          text: 'ToastBot - Created by Toast',
+          text: 'void - Created by ragingtoast813',
           icon_url: 'https://i.imgur.com/CQiKstK.jpg',
         },
         timestamp: new Date(),
@@ -80,7 +80,7 @@ module.exports = {
 
       // Send the confirmation message as a private (ephemeral) message
       await interaction.followUp({
-        content: 'YAYAYAYAYAYAY! EEEEE Your suggestion has been sent to DolphWorld! 🌟',
+        content: 'YAYAYAYAYAYAY! EEEEE Your suggestion has been sent to ragingragingtoast813813s discord! 🌟',
         ephemeral: true, // Set ephemeral to true to make the reply visible only to the command user
       });
 

@@ -20,7 +20,7 @@ const restaurantMenu = [
 
 module.exports = {
   name: 'order',
-  description: 'Allows the user to order food from the restaurant menu using ToastBucks!',
+  description: 'Allows the user to order food from the restaurant menu using ragingtoast813Bucks!',
   options: [
     {
       name: 'item',
@@ -70,7 +70,7 @@ module.exports = {
       if (user.balance < selectedFoodItem.price) {
         const embed = {
           title: 'Insufficient Balance',
-          description: "L, you don't have enough ToastBucks to order this food item. Better luck next time!",
+          description: "L, you don't have enough ragingtoast813Bucks to order this food item. Better luck next time!",
           color: 0xFF0000, // Red color
         };
 

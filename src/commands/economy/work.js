@@ -55,7 +55,7 @@ module.exports = {
       user.lastWorkedAt = currentTime;
       await user.save();
 
-      interaction.editReply(`You worked as ${selectedJob.job} and earned ${selectedJob.reward} ToastBucks. Your new balance is ${newBalance} ToastBucks. <:Toast:978832169474605086>`);
+      interaction.editReply(`You worked as ${selectedJob.job} and earned ${selectedJob.reward} ragingtoast813Bucks. Your new balance is ${newBalance} ragingtoast813Bucks. <:ragingtoast813:978832169474605086>`);
     } catch (error) {
       console.error('Error running work command:', error);
       interaction.editReply('An error occurred while running the command.');
@@ -63,5 +63,5 @@ module.exports = {
   },
 
   name: 'work',
-  description: 'Work and earn DolphCoins and DolphBucks based on your job or role!',
+  description: 'Work and earn ragingtoast813Coins and ragingtoast813Bucks based on your job or role!',
 };

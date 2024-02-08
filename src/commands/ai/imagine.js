@@ -59,7 +59,7 @@ module.exports = {
             description: `**Prompt:**\n${prompt}`,
             color: 0x964b00, // Integer representation of the color
             footer: {
-              text: `Requested by ${interaction.user.username} (bot coded by Toast)`,
+              text: `Requested by ${interaction.user.username} (bot coded by ragingtoast813)`,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
             },
             timestamp: new Date(),

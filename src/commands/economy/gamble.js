@@ -45,7 +45,7 @@ module.exports = {
         const winnings = Math.floor(amount * 2); // Double the amount gambled
         userLevel.xp += winnings;
         await userLevel.save();
-        interaction.editReply(`You gambled ${amount} ToastBucks and won ${winnings} ToastBucks!<:DolphCoin:1127314299665264760><:DolphToken:1127314332317929503><:ToastBucks:1127314182648373291>`);
+        interaction.editReply(`You gambled ${amount} ragingtoast813Bucks and won ${winnings} ragingtoast813Bucks!<:ragingtoast813Coin:1127314299665264760><:ragingtoast813Token:1127314332317929503><:ragingtoast813Bucks:1127314182648373291>`);
       }
     } catch (error) {
       console.error('Error running gamble command:', error);

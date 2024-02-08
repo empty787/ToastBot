@@ -5,7 +5,7 @@ module.exports = {
   callback: (client, interaction) => {
     const embed = {
       title: 'Hey!',
-      description: 'I am Toast\'s Discord bot! qwerty',
+      description: 'I am ragingtoast813\'s Discord bot! qwerty',
       color: 0x00ff00, // You can customize the color as desired
     };
 

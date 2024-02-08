@@ -6,7 +6,7 @@ const shopItems = [
   { name: 'Super Sword', price: 500 },
   { name: 'Magic Potion', price: 200 },
   { name: 'Legendary Shield', price: 1000 },
-  { name: 'Toast Plushie', price: 1000 },
+  { name: 'ragingtoast813 Plushie', price: 1000 },
   { name: 'Tesla', price: 1000 },
   { name: 'Iphone 14 pro max', price: 9000 },
   { name: 'twitter', price: 1000 },
@@ -29,11 +29,11 @@ const shopItems = [
 
 module.exports = {
   name: 'buy',
-  description: 'Allows the user to buy an item from the shop using their daily DolphCoins and ToastBucks!',
+  description: 'yo',
   options: [
     {
       name: 'item',
-      description: 'The item you want to buy at DolphStore!',
+      description: 'The item you want to buy at ragingtoast813Store!',
       type: 3,
       required: true,
       choices: shopItems.map((item) => ({
@@ -114,7 +114,7 @@ module.exports = {
       if (user.balance < selectedItem.price) {
         const embed = {
           title: 'Insufficient Balance',
-          description: 'Insufficient DolphCoins and ToastBucks to make the purchase.',
+          description: 'Insufficient ragingtoast813Coins and ragingtoast813Bucks to make the purchase.',
           color: 0xFF0000, // Red color
         };
 

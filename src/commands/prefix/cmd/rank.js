@@ -22,7 +22,7 @@ module.exports = {
     const ctx = canvas.getContext('2d');
 
     // Load the background image for the rank card (replace with your desired background image)
-    const backgroundImagePath = path.join(__dirname, '../../../../images/toast.png'); // Adjust the path as needed
+    const backgroundImagePath = path.join(__dirname, '../../../../img/void.png'); // Adjust the path as needed
     const backgroundImage = await loadImage(backgroundImagePath);
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 

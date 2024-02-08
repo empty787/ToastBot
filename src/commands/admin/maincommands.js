@@ -45,7 +45,7 @@ module.exports = {
           },
           {
             name: '/invite',
-            value: 'gives you the invite to DolphWorld Discord server!',
+            value: 'gives you the invite to ragingragingtoast813813s discord Discord server!',
           },
           {
             name: '/lenny',

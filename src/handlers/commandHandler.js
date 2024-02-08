@@ -2,6 +2,7 @@ const { readdirSync } = require('fs');
 const { Collection } = require('discord.js');
 const { prefix } = require('../../config.json');
 const path = require('path'); // Add this line
+// const prefix = path.resolve(__dirname, '../../config.json'); this does NOT work
 
 // Define the client.commands collection
 const commands = new Collection();

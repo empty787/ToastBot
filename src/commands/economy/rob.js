@@ -50,7 +50,7 @@ module.exports = {
         userLevel.xp += amountStolen;
         await userLevel.save();
 
-        interaction.editReply(`You successfully robbed ${amountStolen} ToastBucks from the target. <:ToastBucks:1127314182648373291>`);
+        interaction.editReply(`You successfully robbed ${amountStolen} ragingtoast813Bucks from the target. <:ragingtoast813Bucks:1127314182648373291>`);
       }
     } catch (error) {
       console.error('Error running rob command:', error);

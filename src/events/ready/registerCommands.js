@@ -52,6 +52,6 @@ module.exports = async (client) => {
       }
     }
   } catch (error) {
-    console.log(`There was an error: ${error}`);
+    console.log(`There was an error: ${error} ${error.stack}`);
   }
 };

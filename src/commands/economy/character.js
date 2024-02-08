@@ -5,7 +5,7 @@ const User = require('../../models/User');
 
 module.exports = {
   name: 'character',
-  description: "Shows your DolphWorld economy character profile or other users' profiles!",
+  description: "Shows your ragingragingtoast813813's discord economy character profile or other users' profiles!",
   options: [
     {
       name: 'user',
@@ -111,7 +111,7 @@ module.exports = {
 
         // Create the embed
         const embed = {
-          title: 'DolphWorld Economy Character Profile',
+          title: 'ragingragingtoast813813s discord Economy Character Profile',
           description: profileMessage,
           color: 0x964B00,
         };

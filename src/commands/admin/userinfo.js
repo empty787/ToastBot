@@ -52,7 +52,7 @@ module.exports = {
         },
       ],
       footer: {
-        text: 'ToastBot - Created by Toast',
+        text: 'void - Created by ragingtoast813',
         icon_url: 'https://i.imgur.com/CQiKstK.jpg',
       },
       timestamp: new Date(),

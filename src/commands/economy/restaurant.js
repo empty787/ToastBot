@@ -41,12 +41,12 @@ module.exports = {
         color: 0xFF5733,
         title: 'Restaurant Menu',
         description: 'Here is our delicious menu with prices:',
-        fields: menu.map(item => ({ name: item.name, value: `${item.price} ToastBucks`, inline: true })),
-        footer: { text: 'Toasts goofy ahh restarant' },
+        fields: menu.map(item => ({ name: item.name, value: `${item.price} ragingtoast813Bucks`, inline: true })),
+        footer: { text: 'ragingtoast813s goofy ahh restarant' },
       };
 
       if (user.money < 0) {
-        interaction.editReply('You do not have enough ToastBucks to order from the restaurant.');
+        interaction.editReply('You do not have enough ragingtoast813Bucks to order from the restaurant.');
         return;
       }
 

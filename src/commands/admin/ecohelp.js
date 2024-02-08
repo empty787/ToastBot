@@ -4,7 +4,7 @@ module.exports = {
   
     callback: (client, interaction) => {
       const embed = {
-        title: 'Economy Commands Help For ToastBot',
+        title: 'Economy Commands Help For void',
         description: 'Here are the available economy commands:',
         fields: [
           {
@@ -25,7 +25,7 @@ module.exports = {
           },
           {
             name: '/beg',
-            value: 'beg for more Dolphbucks!',
+            value: 'beg for more ragingtoast813bucks!',
           },
           {
             name: '/blackjack',
@@ -33,11 +33,11 @@ module.exports = {
           },
           {
             name: '/daily',
-            value: 'Get your Toastbucks and ToastCoins each day!',
+            value: 'Get your ragingtoast813bucks and ragingtoast813Coins each day!',
           },
           {
             name: '/deposit',
-            value: 'deposits your Toastbucks to the bank',
+            value: 'deposits your ragingtoast813bucks to the bank',
           },
           {
             name: '/gamble',
@@ -45,7 +45,7 @@ module.exports = {
           },
           {
             name: '/invest',
-            value: 'invest your ToastBucks!',
+            value: 'invest your ragingtoast813Bucks!',
           },
           {
             name: '/rob',
@@ -53,7 +53,7 @@ module.exports = {
           },
           {
             name: '/scam',
-            value: 'This command is just a test! This is not a scam command to steal your ToastBucks!',
+            value: 'This command is just a test! This is not a scam command to steal your ragingtoast813Bucks!',
           },
           {
             name: '/trade',
@@ -61,15 +61,15 @@ module.exports = {
           },
           {
             name: '/work',
-            value: 'Use this slash command for more ToastBucks!',
+            value: 'Use this slash command for more ragingtoast813Bucks!',
           },
           {
             name: '/buy',
-            value: 'Want to spend your ToastBucks on something cool? Do /buy to get something!',
+            value: 'Want to spend your ragingtoast813Bucks on something cool? Do /buy to get something!',
           },
           {
             name: '/shop',
-            value: 'Shows all availible products in stock at ToastShop!',
+            value: 'Shows all availible products in stock at ragingtoast813Shop!',
           },
           {
             name: '/inventory',
@@ -77,11 +77,11 @@ module.exports = {
           },
           {
             name: '/restaurant',
-            value: 'Shows all availible products in stock at `Toasts Goofy Ahh Restarant!`',
+            value: 'Shows all availible products in stock at `ragingtoast813s Goofy Ahh Restarant!`',
           },
           {
             name: '/order',
-            value: 'Are you starving rn? well, use this command to get food at `Toasts Goofy Ahh Restarant!`',
+            value: 'Are you starving rn? well, use this command to get food at `ragingtoast813s Goofy Ahh Restarant!`',
           },
         ],
         color: 0x964B00, // You can customize the color as desired
